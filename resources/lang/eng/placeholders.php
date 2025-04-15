@@ -115,7 +115,16 @@ return array(
     'hsnSac' => 'e.g. 995431',
     'sku' => "Write the product's sku here",
     'hourEstimate' => 'e.g. 500',
-    
+    'paymentGateway' => array(
+        'sandboxPaypalClientId' => 'e.g. AW-Ydt5KHz2FwhAikHsObpRrpB55qE8MyvUkHbQsFb_6_2Unv3WNBSmBxEqA8N74JzOaFTPBUI-MG4sB',
+        'livePaypalClientId' => 'e.g. AW-Ydt5KHz2FwhAikHsObpRrpB55qE8MyvUkHbQsFb_6_2Unv3WNBSmBxEqA8N74JzOaFTPBUI-MG4sB',
+        'stripe_key' => env('STRIPE_SECRET', ''),
+'highnote_key' => env('HIGHNOTE_SK_LIVE', ''),
+        'testRazorpayKey' => 'e.g. rzp_test_znKZOLXXT3XXEX',
+        'liveRazorpayKey' => 'e.g. rzp_live_znKZOLn4TXXXXX',
+        'paystackKey' => 'e.g. pk_live_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'flutterwaveKey' => 'e.g. FLWPUBK-xxxxxxxxxxxxxxxxxxxxx-X',
+    ),
     'bankaccount' => array(
         'accountName' => 'e.g. John Doe',
         'bankName' => 'e.g. Federal Bank',
