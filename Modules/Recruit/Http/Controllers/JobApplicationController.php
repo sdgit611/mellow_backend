@@ -72,6 +72,7 @@ class JobApplicationController extends AccountBaseController
 
         }
 
+        
         $this->formFields = $this->formSettings->pluck('name')->toArray();
 
         return $dataTable->render('recruit::job-applications.table', $this->data);

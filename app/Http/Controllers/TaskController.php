@@ -35,6 +35,8 @@ use App\Http\Requests\Tasks\StoreTask;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\Tasks\UpdateTask;
 use App\Events\TaskEvent;
+use Modules\Recruit\Entities\RecruitJobApplication;
+
 
 class TaskController extends AccountBaseController
 {
@@ -56,6 +58,7 @@ class TaskController extends AccountBaseController
 
     public function index(TasksDataTable $dataTable)
     {
+        // TasksDataTable $dataTable
         $viewPermission = user()->permission('view_tasks');
 
         abort_403(!in_array($viewPermission, ['all', 'added', 'owned', 'both']));
