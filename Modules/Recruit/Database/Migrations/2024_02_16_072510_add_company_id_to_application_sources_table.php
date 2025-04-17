@@ -14,6 +14,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        // Add the 'company_id' column and foreign key if it doesn't exist
         if (!Schema::hasColumn('application_sources', 'is_predefined')) {
             Schema::table('application_sources', function (Blueprint $table) {
                 $table->boolean('is_predefined')->default(true);
@@ -22,15 +23,15 @@ return new class extends Migration {
             });
         }
 
+        // Update application sources with company data
         $companies = Company::all();
-
 
         foreach ($companies as $key => $company) {
             if ($key == 0) {
+                // Update the company_id for existing application sources where it's null
                 ApplicationSource::whereNull('company_id')->update(['company_id' => $company->id]);
-
-            }
-            else {
+            } else {
+                // Insert new application sources for the company
                 $sourceList = [
                     ['application_source' => 'LinkedIn', 'company_id' => $company->id, 'is_predefined' => true],
                     ['application_source' => 'Facebook', 'company_id' => $company->id, 'is_predefined' => true],
@@ -41,27 +42,25 @@ return new class extends Migration {
 
                 ApplicationSource::insertOrIgnore($sourceList);
             }
-
         }
 
-        $application = RecruitJobApplication::all();
+        // Update RecruitJobApplication with the correct application_source_id
+        $applications = RecruitJobApplication::all();
 
-        foreach ($application as $jobApplication) {
-
+        foreach ($applications as $jobApplication) {
             $source = $jobApplication->source;
 
             if ($source) {
-                $applicationSource = ApplicationSource::where('company_id', $jobApplication->company_id)->where('application_source', $source->application_source)->first();
+                $applicationSource = ApplicationSource::where('company_id', $jobApplication->company_id)
+                                                      ->where('application_source', $source->application_source)
+                                                      ->first();
 
                 if ($applicationSource) {
                     $jobApplication->application_source_id = $applicationSource->id;
                     $jobApplication->save();
                 }
             }
-
-
         }
-
     }
 
     /**
@@ -70,8 +69,9 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('application_sources', function (Blueprint $table) {
+            // Drop foreign key constraint before dropping the column
+            $table->dropForeign(['company_id']);
             $table->dropColumn('company_id');
         });
     }
-
 };

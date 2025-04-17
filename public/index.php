@@ -14,6 +14,11 @@ if (version_compare(PHP_VERSION, '8.1.0') < 0){
     include('error_install.php');
     exit(1);
 }
+// if (version_compare(PHP_VERSION, '8.2.0') < 0){
+//     $GLOBALS["error_type"] = "php-version";
+//     include('error_install.php');
+//     exit(1);
+// }
 
 define('LARAVEL_START', microtime(true));
 

@@ -1174,14 +1174,29 @@ if (!function_exists('pdfStripTags')) {
 
 }
 
+
+
 if (!function_exists('companyToYmd')) {
 
     function companyToYmd($date)
     {
-        return Carbon::createFromFormat(company()->date_format, $date)->format('Y-m-d');
+        try {
+            if (!$date || trim($date) === '') {
+                return null;
+            }
+
+            $company = company();
+            $format = $company && isset($company->date_format) ? $company->date_format : 'd-m-Y';
+
+            return Carbon::createFromFormat($format, $date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            // Log the error if needed
+            return null;
+        }
     }
 
 }
+
 
 if (!function_exists('companyToDateString')) {
 

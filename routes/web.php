@@ -147,6 +147,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::resource('settings', SettingsController::class)->only(['edit', 'update', 'index', 'change_language']);
 
 
+    // client Routes 
     Route::post('approve/{id}', [ClientController::class, 'approve'])->name('clients.approve');
     Route::post('save-consent-purpose-data/{client}', [ClientController::class, 'saveConsentLeadData'])->name('clients.save_consent_purpose_data');
     Route::get('clients/gdpr-consent', [ClientController::class, 'consent'])->name('clients.gdpr_consent');
