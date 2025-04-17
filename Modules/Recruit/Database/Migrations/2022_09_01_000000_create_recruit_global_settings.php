@@ -12,6 +12,7 @@ return new class extends Migration
 {
     public function up()
     {
+        // Create the recruit_global_settings table
         Schema::create('recruit_global_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('purchase_code')->nullable();
@@ -20,8 +21,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Copy purchase_code from RecruitSetting to RecruitGlobalSetting
         $setting = RecruitSetting::withoutGlobalScope(CompanyScope::class)->first();
-
         $newSetting = new RecruitGlobalSetting;
 
         if ($setting) {
@@ -29,10 +30,10 @@ return new class extends Migration
         }
         $newSetting->saveQuietly();
 
+        // Drop the purchase_code column from recruit_settings table
         Schema::table('recruit_settings', function (Blueprint $table) {
             $table->dropColumn(['purchase_code']);
         });
-
     }
 
     /**
@@ -42,9 +43,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('zoom_setting', function (Blueprint $table) {
-            $table->dropColumn(['purchase_code']);
+        // Drop the recruit_global_settings table and add the purchase_code column back to recruit_settings
+        Schema::table('recruit_settings', function (Blueprint $table) {
+            $table->string('purchase_code')->nullable();
         });
-    }
 
+        Schema::dropIfExists('recruit_global_settings');
+    }
 };

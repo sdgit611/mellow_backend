@@ -33,15 +33,19 @@ class NewUserSlack extends BaseNotification
      * @return array
      */
     public function via($notifiable)
-    {
-        $via = ['database'];
+{
+    $via = ['database'];
 
-        if ($this->emailSetting->send_slack == 'yes' && $this->company->slackSetting->status == 'active') {
-            $this->slackUserNameCheck($notifiable) ? array_push($via, 'slack') : null;
-        }
-
-        return $via;
+    // Check if $this->emailSetting and $this->company are set and then access their properties
+    if (isset($this->emailSetting) && $this->emailSetting->send_slack == 'yes' &&
+        isset($this->company) && isset($this->company->slackSetting) && $this->company->slackSetting->status == 'active') {
+        
+        // Check Slack username if it's set
+        $this->slackUserNameCheck($notifiable) ? array_push($via, 'slack') : null;
     }
+
+    return $via;
+}
 
     /**
      * Get the array representation of the notification.

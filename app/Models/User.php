@@ -27,6 +27,7 @@ use IvanoMatteo\LaravelDeviceTracking\Traits\UseDevices;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticationProvider;
 use Trebol\Entrust\Traits\EntrustUserTrait;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * App\Models\User
@@ -224,6 +225,7 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     use HasCompany;
     use HasMaskImage;
     use UseDevices;
+    use HasApiTokens;
 
 
     const ALL_ADDED_BOTH = ['all', 'added', 'both'];

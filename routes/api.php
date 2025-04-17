@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\API\EmployeeApiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,3 +15,7 @@
 ApiRoute::group(['namespace' => 'App\Http\Controllers'], function () {
     ApiRoute::get('purchased-module', ['as' => 'api.purchasedModule', 'uses' => 'HomeController@installedModule']);
 });
+
+// Route::post('employees', [EmployeeApiController::class, 'store'])->middleware('auth:sanctum');
+Route::post('employees', [EmployeeApiController::class, 'store']);
+
