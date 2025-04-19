@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\API\EmployeeApiController;
-use App\Http\Controllers\API\EmployerRegsitController;
+use App\Http\Controllers\Api\RegistrationController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,8 +17,10 @@ ApiRoute::group(['namespace' => 'App\Http\Controllers'], function () {
     ApiRoute::get('purchased-module', ['as' => 'api.purchasedModule', 'uses' => 'HomeController@installedModule']);
 });
 
-// Route::post('employees', [EmployeeApiController::class, 'store'])->middleware('auth:sanctum');
-Route::post('employees', [EmployeeApiController::class, 'store']);
-Route::post('/employer-register', [EmployerRegsitController::class, 'employerRegister']);
+
+Route::resource('/profile', RegistrationController::class);
+
+
+
 
 

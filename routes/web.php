@@ -9,6 +9,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ClientPremiumPackageController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\SearchController;
@@ -147,7 +148,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::resource('settings', SettingsController::class)->only(['edit', 'update', 'index', 'change_language']);
 
 
-    // client Routes 
     Route::post('approve/{id}', [ClientController::class, 'approve'])->name('clients.approve');
     Route::post('save-consent-purpose-data/{client}', [ClientController::class, 'saveConsentLeadData'])->name('clients.save_consent_purpose_data');
     Route::get('clients/gdpr-consent', [ClientController::class, 'consent'])->name('clients.gdpr_consent');
@@ -161,6 +161,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::post('clients/import/process', [ClientController::class, 'importProcess'])->name('clients.import.process');
     Route::get('clients/finance-count/{id}', [ClientController::class, 'financeCount'])->name('clients.finance_count');
     Route::resource('clients', ClientController::class);
+    // Route::resource('buy_premium_package', ClientPremiumPackageController::class);
+
+    Route::get('buy_premium_package', [ClientPremiumPackageController::class, 'index'])->name('buy_premium_package.index');
+    Route::post('premium-pay', [ClientPremiumPackageController::class, 'PremiumPay'])->name('client.premium.pay');
 
     Route::post('client-contacts/apply-quick-action', [ClientContactController::class, 'applyQuickAction'])->name('client-contacts.apply_quick_action');
     Route::resource('client-contacts', ClientContactController::class);

@@ -866,6 +866,7 @@ return new class extends Migration {
                 $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
                 $table->unsignedInteger('user_id')->index('employee_details_user_id_foreign');
                 $table->string('employee_id')->nullable()->unique();
+                $table->string('employee_profile_name');
                 $table->text('address')->nullable();
                 $table->double('hourly_rate')->nullable();
                 $table->string('slack_username')->nullable()->unique();

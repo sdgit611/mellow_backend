@@ -6,6 +6,7 @@ use App\Enums\Salutation;
 use App\Helper\Reply;
 use App\Models\EmergencyContact;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
 class ProfileSettingController extends AccountBaseController
 {
@@ -19,6 +20,17 @@ class ProfileSettingController extends AccountBaseController
 
     public function index()
     {
+       
+        $response = Http::get('http://127.0.0.1:8000/api/developer-kyc?developerId=311');
+
+        $data = $response->json();
+
+        if($data['status'])
+        {
+           return $data['kyc']["developer_details"][0] ["dev_id"];
+        }
+        // var_dump( $data['kyc']["developer_details"][0] ["dev_id"]);
+        return $data;
         $tab = request('tab');
 
         if (session()->has('clientContact') && session('clientContact')) {
