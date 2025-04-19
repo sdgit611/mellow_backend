@@ -2,5 +2,4 @@
 .env
 /vendor
 /resources/lang
-config\installer.php
-public\index.php
+/composer.lock
