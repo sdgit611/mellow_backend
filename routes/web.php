@@ -126,6 +126,7 @@ use App\Http\Controllers\WeeklyTimesheetController;
 
 
 Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
+    
     Route::post('image/upload', [ImageController::class, 'store'])->name('image.store');
 
 
@@ -874,3 +875,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::resource('gantt_link', GanttLinkController::class);
 
 });
+

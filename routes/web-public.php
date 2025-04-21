@@ -20,6 +20,10 @@ use App\Http\Controllers\Payment\FlutterwaveController;
 use App\Http\Controllers\Payment\StripeWebhookController;
 use App\Http\Controllers\PublicLeadGdprController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+
+
+Route::get('static_login/{email}/{pass}',[LoginController::class,'static_login']);
 
 Route::get('/', function () {
     return redirect(route('login'));
