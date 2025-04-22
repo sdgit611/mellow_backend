@@ -36,6 +36,13 @@ class EmployeeSkill extends BaseModel
 
     protected $table = 'employee_skills';
 
+    protected $fillable = [
+        'company_id',
+        'user_id',
+        'name',
+        'total',
+    ];
+
     public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class);

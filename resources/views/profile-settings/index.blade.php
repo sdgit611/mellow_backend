@@ -13,7 +13,7 @@ $viewClientDocumentPermission = user()->permission('view_client_document');
 
         <x-setting-card>
 
-            <x-slot name="buttons">
+            <x-slot name="buttons">+
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <x-forms.link-primary link="javascript:;" class="mr-3 float-left d-none actionBtn emergency-contacts-btn" icon="plus">
@@ -43,6 +43,27 @@ $viewClientDocumentPermission = user()->permission('view_client_document');
                                 <a class="nav-item nav-link f-15 documents"
                                 href="{{ route('profile-settings.index') }}?tab=documents" role="tab"
                                 aria-controls="documents" aria-selected="true" ajax="false">@lang('app.menu.documents')
+                                </a>
+                            @endif
+
+                            @if (!in_array('client', user_roles()))
+                                <a class="nav-item nav-link f-15 education"
+                                href="{{ route('profile-settings.index') }}?tab=education" role="tab"
+                                aria-controls="education" aria-selected="true" ajax="false">@lang('modules.education.education')
+                                </a>
+                            @endif
+
+                            @if (!in_array('client', user_roles()))
+                                <a class="nav-item nav-link f-15 bank_details"
+                                href="{{ route('profile-settings.index') }}?tab=bank_details" role="tab"
+                                aria-controls="bank_details" aria-selected="true" ajax="false">@lang('modules.bank_details.bank_details')
+                                </a>
+                            @endif
+
+                            @if (!in_array('client', user_roles()))
+                                <a class="nav-item nav-link f-15 skill"
+                                    href="{{ route('profile-settings.index') }}?tab=skill" role="tab"
+                                    aria-controls="skill" aria-selected="true" ajax="false">@lang('modules.skill.skill')
                                 </a>
                             @endif
                         </div>

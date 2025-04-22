@@ -123,6 +123,9 @@ use App\Http\Controllers\NoticeFileController;
 use App\Http\Controllers\InvoicePaymentDetailController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\WeeklyTimesheetController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\BankConrtoller;
 
 
 Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
@@ -177,6 +180,20 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
 
     Route::get('client-docs/download/{id}', [ClientDocController::class, 'download'])->name('client-docs.download');
     Route::resource('client-docs', ClientDocController::class);
+
+    Route::get('education/create', [EducationController::class, 'create'])->name('education.create');
+    Route::post('education/store', [EducationController::class, 'store'])->name('education.store');
+    Route::get('education/edit/{id}', [EducationController::class, 'edit'])->name('education.edit');
+    Route::post('education/update', [EducationController::class, 'update'])->name('education.update');
+    Route::delete('education/destroy/{id}', [EducationController::class, 'destroy'])->name('education.destroy');
+
+    Route::get('skill/create', [SkillController::class, 'create'])->name('skill.create');
+    Route::post('skill/store', [SkillController::class, 'store'])->name('skill.store');
+    Route::get('skill/edit/{id}', [SkillController::class, 'edit'])->name('skill.edit');
+    Route::post('skill/update', [SkillController::class, 'update'])->name('skill.update');
+    Route::delete('skill/destroy/{id}', [SkillController::class, 'destroy'])->name('skill.destroy');
+
+    Route::post('/bank-detail/store', [BankController::class, 'store'])->name('bank_detail.stores');
 
     // client category & subcategory
     Route::resource('clientCategory', ClientCategoryController::class);
