@@ -9,12 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
     public function up(): void
     {
-
-        Schema::whenTableDoesntHaveColumn('zoom_global_settings', 'purchased_on', function (Blueprint $table) {
-            $table->timestamp('purchased_on')->nullable()->after('supported_until');
+        Schema::table('education', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -23,9 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('order_items', function (Blueprint $table) {
-
+        Schema::table('education', function (Blueprint $table) {
+            //
         });
     }
-
 };

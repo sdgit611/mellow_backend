@@ -9,12 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
     public function up(): void
     {
-
-        Schema::whenTableDoesntHaveColumn('zoom_global_settings', 'purchased_on', function (Blueprint $table) {
-            $table->timestamp('purchased_on')->nullable()->after('supported_until');
+        Schema::table('employee_skills', function (Blueprint $table) {
+            // Drop the foreign key and skill_id column
+            $table->dropForeign(['skill_id']);
+            $table->dropColumn('skill_id');
+        
+            // Add name column instead
+            $table->string('name');
         });
     }
 
@@ -23,9 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('order_items', function (Blueprint $table) {
-
-        });
+        //
     }
-
 };

@@ -9,12 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
     public function up(): void
     {
-
-        Schema::whenTableDoesntHaveColumn('zoom_global_settings', 'purchased_on', function (Blueprint $table) {
-            $table->timestamp('purchased_on')->nullable()->after('supported_until');
+        Schema::table('employee_skills', function (Blueprint $table) {
+            $table->integer('total')->comment('total experience of this skill')->nullable();
         });
     }
 
@@ -23,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('order_items', function (Blueprint $table) {
-
+        Schema::table('employee_skills', function (Blueprint $table) {
+            $table->dropColumn('total');
         });
     }
-
 };

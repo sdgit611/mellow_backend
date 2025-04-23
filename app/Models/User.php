@@ -27,7 +27,6 @@ use IvanoMatteo\LaravelDeviceTracking\Traits\UseDevices;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticationProvider;
 use Trebol\Entrust\Traits\EntrustUserTrait;
-use Laravel\Sanctum\HasApiTokens;
 
 /**
  * App\Models\User
@@ -225,7 +224,6 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     use HasCompany;
     use HasMaskImage;
     use UseDevices;
-    use HasApiTokens;
 
 
     const ALL_ADDED_BOTH = ['all', 'added', 'both'];
@@ -500,6 +498,11 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     public function skills(): array
     {
         return EmployeeSkill::select('skills.name')->join('skills', 'skills.id', 'employee_skills.skill_id')->where('user_id', $this->id)->pluck('name')->toArray();
+    
+    }
+    public function skill(): HasMany
+    {
+        return $this->hasMany(EmployeeSkill::class);
     }
 
     public function emergencyContacts(): HasMany
@@ -1216,6 +1219,12 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     public function ticketReply(): BelongsToMany
     {
         return $this->belongsToMany(TicketReply::class, 'ticket_reply_users', 'user_id', 'ticket_reply_id');
+    }
+
+    
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
     }
 
 }
