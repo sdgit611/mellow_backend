@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\EmployeeApiController;
 use App\Http\Controllers\API\EmployerRegsitController;
+use App\Http\Controllers\API\JobApplicationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,5 +21,7 @@ ApiRoute::group(['namespace' => 'App\Http\Controllers'], function () {
 // Route::post('employees', [EmployeeApiController::class, 'store'])->middleware('auth:sanctum');
 Route::post('employees', [EmployeeApiController::class, 'store']);
 Route::post('/employer-register', [EmployerRegsitController::class, 'employerRegister']);
+Route::post('/job-applications', [JobApplicationController::class, 'store']);
+
 
 
