@@ -33,7 +33,11 @@ use Modules\Recruit\Entities\RecruitJobType;
 use Modules\Recruit\Entities\RecruitSetting;
 use Modules\Recruit\Entities\RecruitSkill;
 use Modules\Recruit\Entities\RecruitWorkExperience;
-use Modules\Recruit\Http\Requests\StoreJobRequest;
+// use Modules\Recruit\Http\Requests\StoreJobRequest;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 class JobController extends AccountBaseController
 {
@@ -237,8 +241,79 @@ class JobController extends AccountBaseController
         return $dataTable->render('recruit::jobs.show', $this->data);
     }
 
-    public function store(StoreJobRequest $request)
+    // by shankar
+    public function store(Request $request)
     {
+        // =========start apis filters section==========
+        $data = $request->all();
+        $matchedSkills = RecruitSkill::whereIn('id', $data['skill_id'])->pluck('name')->map(function ($name) {
+            return strtolower(trim($name));
+        })->toArray();
+        $locationList = CompanyAddress::whereIn('id', $data['location_id'])
+            ->pluck('id', 'location')
+            ->mapWithKeys(function ($id, $loc) {
+                return [strtolower(trim($loc)) => $id];
+            });
+        $response = Http::withoutVerifying()->get('https://gulbug.com/staging/mellowacademy_new/api/developers/list');
+        if (!$response->ok()) {
+            return response()->json(['status' => false, 'message' => 'Developer API failed']);
+        }
+        $developers = $response['data'];
+        $filtered = [];
+        foreach ($developers as $dev) {
+            $devSkills = array_map('trim', explode(',', strtolower($dev['skills'] ?? '')));
+            $devAddress = strtolower(trim($dev['address']));
+            $devExperience = (int) $dev['total_experience'];
+            $devExpectedCTC = (float) $dev['expected_ctc'];
+            $locationId = $locationList[$devAddress] ?? null;
+
+            $skillMatch = !empty(array_intersect($matchedSkills, $devSkills));
+            $experienceMatch = $devExperience >= (int) $data['work_experience'];
+            $ctcMatch = $devExpectedCTC <= (float) $data['start_amount'];
+
+            if (
+                $locationId &&
+                (
+                    $skillMatch ||
+                    $experienceMatch ||
+                    $ctcMatch
+                )
+            ) {
+                $filtered[] = $dev;
+
+                $existing = DB::table('recruit_job_applications')
+                    ->where('email', $dev['email'] ?? '')
+                    ->where('phone', $dev['phone'] ?? '')
+                    ->first();
+
+                $entry = [
+                    'company_id'            => 1,
+                    'full_name'             => $dev['name'] ?? '',
+                    'email'                 => $dev['email'] ?? '',
+                    'phone'                 => $dev['phone'] ?? '',
+                    'resume'                => 'Na',
+                    'remark'                => 'Na',
+                    'recruit_job_id'        => 1,
+                    'location_id'           => $locationId,
+                    'application_sources'   => 'addedByUser',
+                    'application_source_id' => 1,
+                    'added_by'              => 1,
+                    'updated_at'            => now(),
+                ];
+
+                if ($existing) {
+                    // ✅ Update existing
+                    DB::table('recruit_job_applications')
+                        ->where('id', $existing->id)
+                        ->update($entry);
+                } else {
+                    // ✅ Insert new
+                    $entry['created_at'] = now();
+                    DB::table('recruit_job_applications')->insert($entry);
+                }
+            }
+        }
+        // =========end apis filters section=============
 
         $addPermission = user()->permission('add_job');
         abort_403(! in_array($addPermission, ['all', 'added']));
@@ -360,7 +435,7 @@ class JobController extends AccountBaseController
         return view('recruit::jobs.create', $this->data);
     }
 
-    public function update(StoreJobRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $this->editPermission = user()->permission('edit_job');
         $job = RecruitJob::findOrFail($id);
