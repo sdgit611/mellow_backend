@@ -54,9 +54,9 @@ $viewClientDocumentPermission = user()->permission('view_client_document');
                             @endif
 
                             @if (!in_array('client', user_roles()))
-                                <a class="nav-item nav-link f-15 bank_details"
-                                href="{{ route('profile-settings.index') }}?tab=bank_details" role="tab"
-                                aria-controls="bank_details" aria-selected="true" ajax="false">@lang('modules.bank_details.bank_details')
+                                <a class="nav-item nav-link f-15 bankDetails"
+                                href="{{ route('profile-settings.index') }}?tab=bankDetails" role="tab"
+                                aria-controls="bankDetails" aria-selected="true" ajax="false">@lang('modules.bank_details.bank_details')
                                 </a>
                             @endif
 

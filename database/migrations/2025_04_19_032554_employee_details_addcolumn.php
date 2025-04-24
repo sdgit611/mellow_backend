@@ -37,8 +37,8 @@ return new class extends Migration
 
         Schema::create('bank_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_details_id')->unsigned()->nullable();
-            $table->foreign('employee_details_id')->references('id')->on('employee_details')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('users_id')->unsigned()->nullable();
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('bank_name')->nullable();
             $table->string('branch_name')->nullable();
             $table->string('account_name')->nullable();
