@@ -446,9 +446,9 @@ class JobApplicationController extends AccountBaseController
         foreach($item as $id){
             $mail = RecruitJobApplication::findOrFail($id);
 
-            if ($send == true) {
-                event(new JobApplicationStatusChangeEvent($mail));
-            }
+            // if ($send == true) {
+            //     event(new JobApplicationStatusChangeEvent($mail));
+            // }
 
             $mail->recruit_application_status_id = $request->status;
             $mail->save();
