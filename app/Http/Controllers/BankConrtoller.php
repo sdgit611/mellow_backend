@@ -11,19 +11,10 @@ class BankController extends Controller
 {
     public function store(Request $request)
     {
-        $employee = EmployeeDetails::where('user_id', Auth::id())->first();
-
-        if (!$employee) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Employee not found.',
-            ], 404);
-        }
-
-        BankDetail::updateOrCreate(
-            ['employee_details_id' => $employee->id],
+        BankDetail::create(
             [
-                'branch_name' => $request->bank_number, // ✅ matches input name
+                'users_id' =>  Auth::id(),
+                'branch_name' => $request->bank_number, 
                 'account_name' => $request->account_name,
                 'account_number' => $request->account_number,
                 'ifsc_code' => $request->ifsc_code,
@@ -32,10 +23,10 @@ class BankController extends Controller
             ]
         );
 
-        return response()->json([
-            'status' => 'success',
-            'message' => __('messages.recordSaved'),
-        ]);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => __('messages.recordSaved'),
+        // ]);
     }
 
 }

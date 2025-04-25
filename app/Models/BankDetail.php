@@ -10,7 +10,7 @@ class BankDetail extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employee_details_id',
+        'users_id',
         'branch_name',
         'account_name',
         'account_number',

@@ -505,6 +505,11 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
         return $this->hasMany(EmployeeSkill::class);
     }
 
+    public function bank(): HasOne
+    {
+        return $this->HasOne(BankDetail::class, 'users_id');
+    }
+
     public function emergencyContacts(): HasMany
     {
         return $this->hasMany(EmergencyContact::class);

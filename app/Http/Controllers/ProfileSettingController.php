@@ -164,8 +164,9 @@ class ProfileSettingController extends AccountBaseController
             $this->view = 'profile-settings.ajax.education.index';
             break;
         
-        case 'bank_details':
-            $this->view = 'profile-settings.ajax.bank_details.index';
+        case 'bankDetails':
+            $this->bank = $this->user->bank;
+            $this->view = 'profile-settings.ajax.bankDetails.index';
             break;
         
         case 'skill':

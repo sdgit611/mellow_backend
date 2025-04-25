@@ -126,6 +126,7 @@ use App\Http\Controllers\WeeklyTimesheetController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\BankConrtoller;
+use App\Http\Controllers\PayEmployeeController;
 
 
 Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
@@ -889,5 +890,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
 
     Route::post('gantt_link.task_update', [GanttLinkController::class, 'taskUpdateController'])->name('gantt_link.task_update');
     Route::resource('gantt_link', GanttLinkController::class);
-
+    
+    
 });
+Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');

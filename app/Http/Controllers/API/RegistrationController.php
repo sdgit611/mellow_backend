@@ -45,7 +45,7 @@ class RegistrationController extends Controller
         try {
             // Create user
             $user = User::create([
-                'company_id' => $company->id,
+                'company_id' => 1,
                 'name'       => $request->name,
                 'email'      => $request->email,
                 'password'   => Hash::make($request->password),
@@ -55,14 +55,13 @@ class RegistrationController extends Controller
             // Assign role
             RoleUser::create([
                 'user_id' => $user->id,
-                'role_id' => $role->id,
+                'role_id' => 2,
             ]);
     
             // Save employee details
             EmployeeDetails::create([
-                'company_id'            => $company->id,
+                'company_id'            => 1,
                 'user_id'               => $user->id,
-                'employee_profile_name' => $request->profile,
                 'joining_date' => $request->joining_date ? Carbon::parse($request->joining_date) : Carbon::now(),
             ]);
     
