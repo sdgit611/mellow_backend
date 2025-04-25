@@ -16,13 +16,13 @@ return [
     */
 
     // This will determine if the application worksuite or worksuite-saas
-    'app_name' => 'worksuite',
+    'app_name' => 'MellowVoult',
 
-    'name' => 'Worksuite',
+    'name' => 'MellowVoult',
 
 
     // We will use this for email copyright message
-    'global_app_name' => 'Worksuite',
+    'global_app_name' => 'MellowVoult',
 
     /*
     |--------------------------------------------------------------------------
