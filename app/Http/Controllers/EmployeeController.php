@@ -225,22 +225,22 @@ class EmployeeController extends AccountBaseController
             $user->gender = $request->gender;
             $user->locale = $request->locale;
 
-            // if ($request->has('login')) {
-            //     $user->login = $request->login;
-            // }
+            if ($request->has('login')) {
+                $user->login = $request->login;
+            }
 
-            // if ($request->has('email_notifications')) {
-            //     $user->email_notifications = $request->email_notifications ? 1 : 0;
-            // }
+            if ($request->has('email_notifications')) {
+                $user->email_notifications = $request->email_notifications ? 1 : 0;
+            }
 
-            // if ($request->hasFile('image')) {
-            //     Files::deleteFile($user->image, 'avatar');
-            //     $user->image = Files::uploadLocalOrS3($request->image, 'avatar', 300);
-            // }
+            if ($request->hasFile('image')) {
+                Files::deleteFile($user->image, 'avatar');
+                $user->image = Files::uploadLocalOrS3($request->image, 'avatar', 300);
+            }
 
-            // if ($request->has('telegram_user_id')) {
-            //     $user->telegram_user_id = $request->telegram_user_id;
-            // }
+            if ($request->has('telegram_user_id')) {
+                $user->telegram_user_id = $request->telegram_user_id;
+            }
 
             $user->save();
 

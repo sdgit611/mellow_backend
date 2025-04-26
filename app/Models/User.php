@@ -260,6 +260,7 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at', 'headers','location_details'];
+    protected $fillable = ['name', 'email', 'phone'];
 
     public $dates = ['created_at', 'updated_at', 'last_login', 'two_factor_expires_at'];
 
