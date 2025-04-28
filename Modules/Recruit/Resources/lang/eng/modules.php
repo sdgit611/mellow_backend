@@ -69,7 +69,7 @@ return array(
         'startDate' => 'Start Date',
         'endDate' => 'End Date',
         'jobTitle' => 'Job Title',
-        'addJob' => 'Add Job',
+        'addJob' => 'Add Advance Filter',
         'editJob' => 'Edit Job',
         'job' => 'Job',
         'jobDescription' => 'Job Description',
