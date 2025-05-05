@@ -122,6 +122,7 @@ use App\Http\Controllers\NoticeFileController;
 use App\Http\Controllers\InvoicePaymentDetailController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\WeeklyTimesheetController;
+use App\Http\Controllers\PayEmployeeController;
 
 
 Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
@@ -870,3 +871,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::resource('gantt_link', GanttLinkController::class);
 
 });
+
+Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');

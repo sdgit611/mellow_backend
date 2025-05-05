@@ -55,32 +55,100 @@ class JobApplicationsDataTable extends BaseDataTable
             ->editColumn('created_at', function ($row) {
                 return $row->created_at->format($this->company->date_format);
             })
+            // by Start Shivam
             ->editColumn('status', function ($row) use ($jobBoardColumns) {
-                if ($this->editJobApplicationPermission == 'all' ||
+                if ($this->editJobApplicationPermission == 'all' || 
                     ($this->editJobApplicationPermission == 'added' && $row->added_by == user()->id) ||
                     ($this->editJobApplicationPermission == 'owned' && user()->id == $row->recruiter_id) ||
                     ($this->editJobApplicationPermission == 'both' && user()->id == $row->recruiter_id) ||
-                    $row->added_by == user()->id) {
-                    $status = '<select class="form-control select-picker change-status" data-status-id="' . $row->id . '">';
-
-                    foreach ($jobBoardColumns as $item) {
-                        $status .= '<option ';
-
-                        if ($item->id == $row->recruit_application_status_id) {
-                            $status .= 'selected';
+                    $row->added_by == user()->id) 
+                {
+                        if($row->recruit_application_status_id == 6 )
+                    {
+                        $status = '<div style="display: ruby-text;">'
+                        . '<select class="form-control select-picker change-status" data-status-id="' . $row->id . '" disabled'.'>';
+                        foreach ($jobBoardColumns as $item) 
+                        {
+                            $status .= '<option '
+                            . ($item->id == $row->recruit_application_status_id ? 'selected ' : '')
+                            . 'data-content="<i class=\'fa fa-circle mr-2\' style=\'color: ' . $item->color . '\'></i> '
+                            . $item->status . '" value="' . $item->id . '">' 
+                            . $item->status . '</option>';
                         }
-
-                        $status .= '  data-content="<i class=\'fa fa-circle mr-2\' style=\'color: ' . $item->color . '\'></i> ' . $item->status . '" value="' . $item->id . '">' . $item->status . '</option>';
                     }
-
-                    $status .= '</select>';
-                }
-                else {
-                    return ' <i class="fa fa-circle mr-1 text-light-green f-10" style=\'color: ' . $row->color . '\'></i>' . $row->status;
-                }
-
+                    else
+                    {
+                        $status = '<div style="display: ruby-text;">'
+                        . '<select class="form-control select-picker change-status" data-status-id="' . $row->id . '" >';
+                    
+                        foreach ($jobBoardColumns as $item) 
+                        {
+                            // Do not display the option with ID 6
+                            if ($item->id != 6)
+                            {
+                                $status .= '<option '
+                                        . ($item->id == $row->recruit_application_status_id ? 'selected ' : '')
+                                        . 'data-content="<i class=\'fa fa-circle mr-2\' style=\'color: ' . $item->color . '\'></i> '
+                                        . $item->status . '" value="' . $item->id . '">' 
+                                        . $item->status . '</option>';
+                            }
+                        }
+                    }
+                    
+                
+                $status .= '</select>';
+                $status .= '</div>';
+                
                 return $status;
+                
+                }
+                   
             })
+            ->addColumn('payment', function ($row) {
+                if ($row->recruit_application_status_id == 4) {
+                    return '
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex flex-column w-90">
+                                <input 
+                                    type="number" 
+                                    class="form-control form-control-sm pay-amount-input w-100" 
+                                    placeholder="Amount" 
+                                    min="' . ($row->current_ctc * 0.20) . '" 
+                                    max="' . $row->current_ctc . '"
+                                    style="width: 120px;"
+                                    data-row-id="' . $row->id . '"
+                                >
+                                <small class="text-muted">Min: ' . ($row->current_ctc * 0.20) . ' | Max: ' . $row->current_ctc . '</small>
+                                
+                                <div class="form-check mt-1">
+                                    <input 
+                                        type="checkbox" 
+                                        class="form-check-input terms-checkbox" 
+                                        id="terms_' . $row->id . '"
+                                    >
+                                    <label class="form-check-label" for="terms_' . $row->id . '">
+                                        I accept the <a href="#" target="_blank">terms and conditions</a>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button 
+                                type="button" 
+                                class="btn btn-sm btn-success pay-now-btn" 
+                                data-statuss-id="' . $row->id . '" 
+                                data-amount="' . $row->current_ctc . '" 
+                                id="pay_emp"
+                            >Pay Now</button>
+                        </div>
+                    ';
+                } elseif ($row->recruit_application_status_id != 6) {
+                    return '<span class="badge badge-danger">Unpaid</span>';
+                } else {
+                    return '<span class="badge badge-secondary">Paid</span>';
+                }
+            })
+            
+            // by End Shivam
             ->addColumn('name', function ($row) {
                 return $row->full_name;
             })
@@ -157,7 +225,7 @@ class JobApplicationsDataTable extends BaseDataTable
             })
             ->addIndexColumn()
             ->setRowId(fn($row) => 'row-' . $row->id)
-            ->rawColumns(['action', 'status', 'full_name', 'recruit_job_id', 'location', 'date', 'check']);
+            ->rawColumns(['action', 'payment', 'status', 'full_name', 'recruit_job_id', 'location', 'date', 'check']);
     }
 
     /**
@@ -180,8 +248,8 @@ class JobApplicationsDataTable extends BaseDataTable
             $endDate = Carbon::createFromFormat($this->company->date_format, $request->endDate)->toDateString();
         }
 
-        $model = $model->select('recruit_job_applications.id', 'recruit_job_applications.recruit_application_status_id', 'recruit_job_applications.full_name', 'recruit_job_applications.created_at', 'recruit_job_applications.gender', 'recruit_job_applications.total_experience', 'recruit_job_applications.current_location', 'recruit_job_applications.current_ctc', 'recruit_job_applications.added_by', 'recruit_jobs.title', 'recruit_jobs.id as recruit_job_id', 'recruit_jobs.recruiter_id', 'company_addresses.location', 'recruit_application_status.color', 'recruit_application_status.status', 'application_sources.application_source');
-        $model = $model->leftJoin('recruit_application_status', 'recruit_application_status.id', '=', 'recruit_job_applications.recruit_application_status_id');
+$model = $model->select('recruit_job_applications.id', 'recruit_job_applications.recruit_application_status_id', 'recruit_job_applications.full_name', 'recruit_job_applications.created_at', 'recruit_job_applications.gender', 'recruit_job_applications.total_experience', 'recruit_job_applications.current_location', 'recruit_job_applications.current_ctc', 'recruit_job_applications.added_by', 'recruit_jobs.title', 'recruit_jobs.id as recruit_job_id', 'recruit_jobs.recruiter_id', 'company_addresses.location', 'recruit_application_status.color', 'recruit_application_status.status', 'application_sources.application_source', 'recruit_job_applications.payment_status');       
+$model = $model->leftJoin('recruit_application_status', 'recruit_application_status.id', '=', 'recruit_job_applications.recruit_application_status_id');
         $model = $model->leftJoin('recruit_jobs', 'recruit_jobs.id', '=', 'recruit_job_applications.recruit_job_id')
             ->leftJoin('company_addresses', 'company_addresses.id', '=', 'recruit_job_applications.location_id')
             ->leftJoin('application_sources', 'application_sources.id', '=', 'recruit_job_applications.application_source_id')
@@ -313,6 +381,14 @@ class JobApplicationsDataTable extends BaseDataTable
             __('recruit::modules.job.location') => ['data' => 'location', 'name' => 'company_addresses.location', 'title' => __('recruit::modules.job.location')],
             __('recruit::app.jobApplication.date') => ['data' => 'created_at', 'name' => 'created_at', 'title' => __('recruit::app.jobApplication.date')],
             __('app.status') => ['data' => 'status', 'name' => 'status', 'exportable' => false, 'orderable' => false, 'title' => __('app.status')],
+            __('Payment') => [
+                'data' => 'payment', 
+                'name' => 'payment', 
+                'exportable' => false, 
+                'orderable' => false, 
+                'searchable' => false,
+                'title' => __('Payment')
+            ],
             Column::computed('action', __('app.action'))
                 ->exportable(false)
                 ->printable(false)

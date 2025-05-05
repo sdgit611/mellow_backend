@@ -635,4 +635,94 @@
             });
         }
     </script>
+    <!--Start by Shivam -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.body.addEventListener('click', function (e) {
+                if (e.target && e.target.classList.contains('pay-now-btn')) {
+                    e.preventDefault();
+
+                    const button = e.target;
+                    const statusId = button.dataset.statussId;
+                    const baseAmount = parseFloat(button.dataset.amount);
+                    const minAmount = baseAmount * 0.20;
+                    const maxAmount = baseAmount;
+
+                    const inputFieldcheckbox = button.closest('.d-flex').querySelector('.pay-amount-input');
+                    const checkbox = button.closest('.d-flex').querySelector('.terms-checkbox');
+                    const enteredAmount = parseFloat(inputFieldcheckbox.value);
+
+                    if (!checkbox.checked) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'You must accept the terms and conditions.',
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    if (enteredAmount == null || isNaN(enteredAmount) || enteredAmount === '') {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'You must enter a valid amount',
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    if (enteredAmount < minAmount || enteredAmount > maxAmount) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: `Amount must be between ₹${minAmount.toFixed(2)} and ₹${maxAmount.toFixed(2)}.`,
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    const options = {
+                        key: "{{ env('RAZORPAY_KEY') }}",
+                        amount: enteredAmount * 100, // Convert to paise
+                        currency: "INR",
+                        name: "Mellow",
+                        description: "Payment for Service",
+                        handler: function (response) {
+                            fetch("{{ route('pay.employee') }}", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                },
+                                body: JSON.stringify({
+                                    id: statusId,
+                                    amount: enteredAmount
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'Payment Successfully',
+                                    icon: 'success',
+                                }).then(() => {
+                                    window.location.reload();
+                                });
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                            });
+                        }
+                    };
+
+                    const rzp1 = new Razorpay(options);
+                    rzp1.open();
+                }
+            });
+        });
+
+
+    </script>
+
+    <!--End by Shivam -->
 @endpush

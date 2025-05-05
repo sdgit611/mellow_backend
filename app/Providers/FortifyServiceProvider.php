@@ -121,38 +121,38 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::loginView(function () {
 
-            $this->showInstall();
+    $this->showInstall();
+    $this->checkMigrateStatus();
 
-            $this->checkMigrateStatus();
-            $globalSetting = global_setting();
-            // Is worksuite
-            $company = Company::withCount('users')->first();
+    $globalSetting = global_setting();
+    $company = Company::withCount('users')->first();
 
-            if (!$this->isLegal()) {
-                return redirect('verify-purchase');
-            }
+    // 🚫 Comment out the license check
+    // if (!$this->isLegal()) {
+    //     return redirect('verify-purchase');
+    // }
 
-            App::setLocale($globalSetting->locale);
-            Carbon::setLocale($globalSetting->locale);
-            setlocale(LC_TIME, $globalSetting->locale . '_' . mb_strtoupper($globalSetting->locale));
+    App::setLocale($globalSetting->locale);
+    Carbon::setLocale($globalSetting->locale);
+    setlocale(LC_TIME, $globalSetting->locale . '_' . mb_strtoupper($globalSetting->locale));
 
-            $userTotal = $company?->users_count;
+    $userTotal = $company?->users_count;
 
-            if ($userTotal == 0) {
-                return view('auth.account_setup', ['global' => $globalSetting, 'setting' => $globalSetting]);
-            }
+    if ($userTotal == 0) {
+        return view('auth.account_setup', ['global' => $globalSetting, 'setting' => $globalSetting]);
+    }
 
-            $socialAuthSettings = social_auth_setting();
-            $languages = language_setting();
+    $socialAuthSettings = social_auth_setting();
+    $languages = language_setting();
 
-            return view('auth.login', [
-                'globalSetting' => $globalSetting,
-                'socialAuthSettings' => $socialAuthSettings,
-                'company' => $company,
-                'languages' => $languages,
-            ]);
+    return view('auth.login', [
+        'globalSetting' => $globalSetting,
+        'socialAuthSettings' => $socialAuthSettings,
+        'company' => $company,
+        'languages' => $languages,
+    ]);
+});
 
-        });
 
         Fortify::resetPasswordView(function ($request) {
             $globalSetting = GlobalSetting::first();

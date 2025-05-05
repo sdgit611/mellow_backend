@@ -33,7 +33,10 @@ use Modules\Recruit\Entities\RecruitJobType;
 use Modules\Recruit\Entities\RecruitSetting;
 use Modules\Recruit\Entities\RecruitSkill;
 use Modules\Recruit\Entities\RecruitWorkExperience;
-use Modules\Recruit\Http\Requests\StoreJobRequest;
+// use Modules\Recruit\Http\Requests\StoreJobRequest;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends AccountBaseController
 {
@@ -52,6 +55,12 @@ class JobController extends AccountBaseController
     {
         $viewPermission = user()->permission('view_job');
         abort_403(! in_array($viewPermission, ['all', 'added', 'owned', 'both']));
+        
+        // $response = Http::withoutVerifying()->get('https://gulbug.com/staging/mellowacademy_new/api/developers/list');
+        // if (!$response->ok()) {
+        //     return response()->json(['status' => false, 'message' => 'Developer API failed']);
+        // }
+        // return  $response;
 
         $this->departments = Team::all();
         $this->employees = Recruiter::with('user')->where('status', '=', 'enabled')->get();
@@ -237,8 +246,158 @@ class JobController extends AccountBaseController
         return $dataTable->render('recruit::jobs.show', $this->data);
     }
 
-    public function store(StoreJobRequest $request)
+    //  old function before api integration 
+    // public function store(StoreJobRequest $request)
+    // {
+
+    //     $addPermission = user()->permission('add_job');
+    //     abort_403(! in_array($addPermission, ['all', 'added']));
+
+    //     $endDate = ! $request->has('without_end_date') ? Carbon::createFromFormat($this->company->date_format, $request->end_date)->format('Y-m-d') : null;
+
+    //     $job = new RecruitJob;
+    //     $job->title = $request->title;
+    //     $job->slug = Str::slug($request->title, '-');
+    //     $job->job_description = $request->job_description == '<p><br></p>' ? null : $request->job_description;
+    //     $job->total_positions = $request->total_positions;
+    //     $job->remaining_openings = $request->total_positions;
+    //     $job->department_id = $request->department_id;
+    //     $job->recruit_job_type_id = $request->job_type_id;
+    //     $job->start_date = Carbon::createFromFormat($this->company->date_format, $request->start_date)->format('Y-m-d');
+    //     $job->end_date = $endDate;
+    //     $job->status = $request->status;
+    //     $job->recruit_job_category_id = $request->category_id;
+    //     $job->recruit_job_sub_category_id = $request->sub_category_id;
+    //     $job->currency_id = $request->currency_id;
+    //     $job->meta_details = [
+    //         'title' => $request->meta_title ?: $request->title,
+    //         'description' => $request->meta_description ?: strip_tags(Str::substr(html_entity_decode($request->job_description), 0, 150)),
+    //     ];
+
+    //     $job->recruiter_id = $request->recruiter;
+    //     $job->recruit_work_experience_id = $request->work_experience;
+    //     $job->pay_type = $request->paytype;
+    //     $job->start_amount = $request->start_amount;
+    //     $job->end_amount = $request->end_amount;
+    //     $job->pay_according = $request->pay_according;
+    //     $job->disclose_salary = $request->disclose_salary ?: 'no';
+    //     $job->remote_job = $request->remote_job ?: 'no';
+    //     $job->is_photo_require = $request->is_photo_require ?: '0';
+    //     $job->is_resume_require = $request->is_resume_require ?: '0';
+    //     $job->is_dob_require = $request->is_dob_require ?: '0';
+    //     $job->is_gender_require = $request->is_gender_require ?: '0';
+    //     $job->save();
+
+    //     if (! empty($request->skill_id)) {
+    //         foreach ($request->skill_id as $tag) {
+    //             $jobSkill = new RecruitJobSkill;
+    //             $jobSkill->recruit_job_id = $job->id;
+    //             $jobSkill->recruit_skill_id = $tag;
+    //             $jobSkill->save();
+    //         }
+    //     }
+
+    //     if (! empty($request->stage_id)) {
+    //         foreach ($request->stage_id as $stageID) {
+    //             $interviewStage = new JobInterviewStage;
+    //             $interviewStage->recruit_job_id = $job->id;
+    //             $interviewStage->recruit_interview_stage_id = $stageID;
+    //             $interviewStage->save();
+    //         }
+    //     }
+
+    //     if (! empty($request->location_id)) {
+    //         foreach ($request->location_id as $locationID) {
+    //             $jobAddress = new RecruitJobAddress;
+    //             $jobAddress->recruit_job_id = $job->id;
+    //             $jobAddress->company_address_id = $locationID;
+    //             $jobAddress->save();
+    //         }
+    //     }
+
+    //     $job->question()->sync($request->checkQuestionColumn);
+
+    //     if (request()->add_more == 'true') {
+    //         $html = $this->create();
+
+    //         return Reply::successWithData(__('recruit::messages.jobAdded'), ['html' => $html, 'add_more' => true]);
+    //     }
+
+    //     return Reply::successWithData(__('recruit::messages.jobAdded'), ['redirectUrl' => route('jobs.index')]);
+    // }
+    
+    //  new function after api integrated 
+    // by shankar
+    public function store(Request $request)
     {
+        // =========start apis filters section==========
+        $data = $request->all();
+        $matchedSkills = RecruitSkill::whereIn('id', $data['skill_id'])->pluck('name')->map(function ($name) {
+            return strtolower(trim($name));
+        })->toArray();
+        $locationList = CompanyAddress::whereIn('id', $data['location_id'])
+            ->pluck('id', 'location')
+            ->mapWithKeys(function ($id, $loc) {
+                return [strtolower(trim($loc)) => $id];
+            });
+        $response = Http::withoutVerifying()->get('https://gulbug.com/staging/mellowacademy_new/api/developers/list');
+        if (!$response->ok()) {
+            return response()->json(['status' => false, 'message' => 'Developer API failed']);
+        }
+        $developers = $response['data'];
+        $filtered = [];
+        foreach ($developers as $dev) {
+            $devSkills = array_map('trim', explode(',', strtolower($dev['skills'] ?? '')));
+            $devAddress = strtolower(trim($dev['address']));
+            $devExperience = (int) $dev['total_experience'];
+            $devExpectedCTC = (float) $dev['expected_ctc'];
+            $locationId = $locationList[$devAddress] ?? null;
+
+            $skillMatch = !empty(array_intersect($matchedSkills, $devSkills));
+            $experienceMatch = $devExperience >= (int) $data['work_experience'];
+            $ctcMatch = $devExpectedCTC <= (float) $data['start_amount'];
+
+           if($locationId != null)
+           {
+                $filtered[] = $dev;
+
+               $existing = DB::table('recruit_job_applications')
+                    ->where('email', $dev['email'] ?? '')
+                    ->where('phone', $dev['phone'] ?? '')
+                    ->where('company_id', auth()->user()->company_id)
+                    ->first();
+
+                $entry = [
+                    'company_id'            => auth()->user()->company_id,
+                    'full_name'             => $dev['name'] ?? '',
+                    'email'                 => $dev['email'] ?? '',
+                    'phone'                 => $dev['phone'] ?? '',
+                    'current_ctc'           => $dev['current_ctc'] ?? '',
+                    'expected_ctc'          => $dev['expected_ctc'] ?? '',
+                    'notice_period'          => $dev['notice_period'] ?? '',
+                    'resume'                => 'Na',
+                    'remark'                => 'Na',
+                    'recruit_job_id'        => 1,
+                    'location_id'           => $locationId,
+                    'application_sources'   => 'addedByUser',
+                    'application_source_id' => 1,
+                    'added_by'              => 1,
+                    'updated_at'            => now(),
+                ];
+
+                if ($existing) {
+                    // ✅ Update existing
+                    DB::table('recruit_job_applications')
+                        ->where('id', $existing->id)
+                        ->update($entry);
+                } else {
+                    // ✅ Insert new
+                    $entry['created_at'] = now();
+                    DB::table('recruit_job_applications')->insert($entry);
+                }
+           }
+        }
+        // =========end apis filters section=============
 
         $addPermission = user()->permission('add_job');
         abort_403(! in_array($addPermission, ['all', 'added']));
@@ -360,7 +519,7 @@ class JobController extends AccountBaseController
         return view('recruit::jobs.create', $this->data);
     }
 
-    public function update(StoreJobRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $this->editPermission = user()->permission('edit_job');
         $job = RecruitJob::findOrFail($id);
