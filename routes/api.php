@@ -3,7 +3,10 @@
 use App\Http\Controllers\API\EmployeeApiController;
 use App\Http\Controllers\API\EmployerRegsitController;
 use App\Http\Controllers\API\JobApplicationController;
+<<<<<<< HEAD
 use App\Http\Controllers\API\EmployerRegisterController;
+=======
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +26,11 @@ ApiRoute::group(['namespace' => 'App\Http\Controllers'], function () {
 Route::post('employees', [EmployeeApiController::class, 'store']);
 Route::post('/employer-register', [EmployerRegsitController::class, 'employerRegister']);
 Route::post('/job-applications', [JobApplicationController::class, 'store']);
+<<<<<<< HEAD
 Route::post('/employer-register', [EmployerRegisterController::class, 'store']);
 Route::get('/get-employer-company', [EmployerRegisterController::class, 'getUserData']);
+=======
+
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
 
 

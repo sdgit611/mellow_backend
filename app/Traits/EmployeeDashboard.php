@@ -563,7 +563,7 @@ trait EmployeeDashboard
                 $query->where('status', 'active');
             })->without('clientDetails');
 
-        if (in_array('admin', user_roles())) {
+        if (in_array('admin', user_roles())) { 
 
             $employees = $this->employees->clone()
                 ->where(function ($query) use ($currentDay) {

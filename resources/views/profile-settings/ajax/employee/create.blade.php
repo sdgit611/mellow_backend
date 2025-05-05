@@ -43,6 +43,7 @@
                     $('#task-file-list').html(response.view);
                     $(MODAL_DEFAULT).modal('hide');
                 }
+                // window.location.reload();
             }
         })
     });

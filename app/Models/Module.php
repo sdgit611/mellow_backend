@@ -42,7 +42,22 @@ class Module extends BaseModel
                 [
                     'allowed_permissions' => Permission::ALL_NONE,
                     'is_custom' => 0,
-                    'name' => 'add_clients',
+                    'name' => 'add_education',
+                ],
+                [
+                    'allowed_permissions' => Permission::ALL_ADDED_NONE,
+                    'is_custom' => 0,
+                    'name' => 'edit_education',
+                ],
+                [
+                    'allowed_permissions' => Permission::ALL_ADDED_NONE,
+                    'is_custom' => 0,
+                    'name' => 'view_education',
+                ],
+                [
+                    'allowed_permissions' => Permission::ALL_ADDED_NONE,
+                    'is_custom' => 0,
+                    'name' => 'delete_education',
                 ],
                 [
                     'allowed_permissions' => Permission::ALL_ADDED_NONE,

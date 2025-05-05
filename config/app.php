@@ -16,13 +16,13 @@ return [
     */
 
     // This will determine if the application worksuite or worksuite-saas
-    'app_name' => 'worksuite',
+    'app_name' => 'MellowVoult',
 
-    'name' => 'Worksuite',
+    'name' => 'MellowVoult',
 
 
     // We will use this for email copyright message
-    'global_app_name' => 'Worksuite',
+    'global_app_name' => 'MellowVoult',
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ return [
     |
     */
 
-    'debug' => (bool)env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', true),
 
     /*
         |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
         | application. If disabled, a simple generic error page is shown.
         |
         */
-    'api_debug' => env('APP_API_DEBUG', false),
+    'api_debug' => env('APP_API_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------

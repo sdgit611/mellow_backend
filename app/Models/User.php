@@ -27,7 +27,6 @@ use IvanoMatteo\LaravelDeviceTracking\Traits\UseDevices;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticationProvider;
 use Trebol\Entrust\Traits\EntrustUserTrait;
-use Laravel\Sanctum\HasApiTokens;
 
 /**
  * App\Models\User
@@ -225,7 +224,6 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     use HasCompany;
     use HasMaskImage;
     use UseDevices;
-    use HasApiTokens;
 
     protected $fillable = ['company_id','name', 'email', 'phone', 'password', 'locale', 'status', 'login', 'dark_theme', 'rtl', 'admin_approval'];
     const ALL_ADDED_BOTH = ['all', 'added', 'both'];
@@ -262,6 +260,7 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at', 'headers','location_details'];
+    protected $fillable = ['name', 'email', 'phone'];
 
     public $dates = ['created_at', 'updated_at', 'last_login', 'two_factor_expires_at'];
 
@@ -500,6 +499,16 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     public function skills(): array
     {
         return EmployeeSkill::select('skills.name')->join('skills', 'skills.id', 'employee_skills.skill_id')->where('user_id', $this->id)->pluck('name')->toArray();
+    
+    }
+    public function skill(): HasMany
+    {
+        return $this->hasMany(EmployeeSkill::class);
+    }
+
+    public function bank(): HasOne
+    {
+        return $this->HasOne(BankDetail::class, 'users_id');
     }
 
     public function emergencyContacts(): HasMany
@@ -1216,6 +1225,12 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     public function ticketReply(): BelongsToMany
     {
         return $this->belongsToMany(TicketReply::class, 'ticket_reply_users', 'user_id', 'ticket_reply_id');
+    }
+
+    
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
     }
 
 }

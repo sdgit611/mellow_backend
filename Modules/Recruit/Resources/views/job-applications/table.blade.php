@@ -265,9 +265,9 @@
     <!-- CONTENT WRAPPER END -->
 
 @endsection
-
 @push('scripts')
-    @include('sections.datatable_js')
+@include('sections.datatable_js')
+
 
     <script>
 
@@ -634,7 +634,16 @@
                 }
             });
         }
+
+
+
+        
+
     </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
     <!--Start by Shivam -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 

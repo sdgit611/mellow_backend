@@ -9,6 +9,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ClientPremiumPackageController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\SearchController;
@@ -122,6 +123,12 @@ use App\Http\Controllers\NoticeFileController;
 use App\Http\Controllers\InvoicePaymentDetailController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\WeeklyTimesheetController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\BankConrtoller;
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
 use App\Http\Controllers\PayEmployeeController;
 
 
@@ -148,7 +155,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::resource('settings', SettingsController::class)->only(['edit', 'update', 'index', 'change_language']);
 
 
-    // client Routes 
     Route::post('approve/{id}', [ClientController::class, 'approve'])->name('clients.approve');
     Route::post('save-consent-purpose-data/{client}', [ClientController::class, 'saveConsentLeadData'])->name('clients.save_consent_purpose_data');
     Route::get('clients/gdpr-consent', [ClientController::class, 'consent'])->name('clients.gdpr_consent');
@@ -162,6 +168,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::post('clients/import/process', [ClientController::class, 'importProcess'])->name('clients.import.process');
     Route::get('clients/finance-count/{id}', [ClientController::class, 'financeCount'])->name('clients.finance_count');
     Route::resource('clients', ClientController::class);
+    // Route::resource('buy_premium_package', ClientPremiumPackageController::class);
+
+    Route::get('buy_premium_package', [ClientPremiumPackageController::class, 'index'])->name('buy_premium_package.index');
+    Route::post('premium-pay', [ClientPremiumPackageController::class, 'PremiumPay'])->name('client.premium.pay');
 
     Route::post('client-contacts/apply-quick-action', [ClientContactController::class, 'applyQuickAction'])->name('client-contacts.apply_quick_action');
     Route::resource('client-contacts', ClientContactController::class);
@@ -174,6 +184,20 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
 
     Route::get('client-docs/download/{id}', [ClientDocController::class, 'download'])->name('client-docs.download');
     Route::resource('client-docs', ClientDocController::class);
+
+    Route::get('education/create', [EducationController::class, 'create'])->name('education.create');
+    Route::post('education/store', [EducationController::class, 'store'])->name('education.store');
+    Route::get('education/edit/{id}', [EducationController::class, 'edit'])->name('education.edit');
+    Route::post('education/update', [EducationController::class, 'update'])->name('education.update');
+    Route::delete('education/destroy/{id}', [EducationController::class, 'destroy'])->name('education.destroy');
+
+    Route::get('skill/create', [SkillController::class, 'create'])->name('skill.create');
+    Route::post('skill/store', [SkillController::class, 'store'])->name('skill.store');
+    Route::get('skill/edit/{id}', [SkillController::class, 'edit'])->name('skill.edit');
+    Route::post('skill/update', [SkillController::class, 'update'])->name('skill.update');
+    Route::delete('skill/destroy/{id}', [SkillController::class, 'destroy'])->name('skill.destroy');
+
+    Route::post('/bank-detail/store', [BankController::class, 'store'])->name('bank_detail.stores');
 
     // client category & subcategory
     Route::resource('clientCategory', ClientCategoryController::class);
@@ -869,7 +893,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
 
     Route::post('gantt_link.task_update', [GanttLinkController::class, 'taskUpdateController'])->name('gantt_link.task_update');
     Route::resource('gantt_link', GanttLinkController::class);
-
+    
+    
 });
+<<<<<<< HEAD
 
 Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');
+=======
+Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d

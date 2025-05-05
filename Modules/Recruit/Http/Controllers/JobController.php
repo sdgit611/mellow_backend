@@ -37,6 +37,10 @@ use Modules\Recruit\Entities\RecruitWorkExperience;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
 
 class JobController extends AccountBaseController
 {
@@ -246,6 +250,7 @@ class JobController extends AccountBaseController
         return $dataTable->render('recruit::jobs.show', $this->data);
     }
 
+<<<<<<< HEAD
     //  old function before api integration 
     // public function store(StoreJobRequest $request)
     // {
@@ -327,6 +332,8 @@ class JobController extends AccountBaseController
     // }
     
     //  new function after api integrated 
+=======
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
     // by shankar
     public function store(Request $request)
     {
@@ -357,6 +364,7 @@ class JobController extends AccountBaseController
             $experienceMatch = $devExperience >= (int) $data['work_experience'];
             $ctcMatch = $devExpectedCTC <= (float) $data['start_amount'];
 
+<<<<<<< HEAD
            if($locationId != null)
            {
                 $filtered[] = $dev;
@@ -369,6 +377,25 @@ class JobController extends AccountBaseController
 
                 $entry = [
                     'company_id'            => auth()->user()->company_id,
+=======
+            if (
+                $locationId &&
+                (
+                    $skillMatch ||
+                    $experienceMatch ||
+                    $ctcMatch
+                )
+            ) {
+                $filtered[] = $dev;
+
+                $existing = DB::table('recruit_job_applications')
+                    ->where('email', $dev['email'] ?? '')
+                    ->where('phone', $dev['phone'] ?? '')
+                    ->first();
+
+                $entry = [
+                    'company_id'            => 1,
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
                     'full_name'             => $dev['name'] ?? '',
                     'email'                 => $dev['email'] ?? '',
                     'phone'                 => $dev['phone'] ?? '',
@@ -395,7 +422,11 @@ class JobController extends AccountBaseController
                     $entry['created_at'] = now();
                     DB::table('recruit_job_applications')->insert($entry);
                 }
+<<<<<<< HEAD
            }
+=======
+            }
+>>>>>>> 832d01167f2c8e36ecbf52da973d9f51079f838d
         }
         // =========end apis filters section=============
 

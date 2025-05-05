@@ -288,8 +288,8 @@ class EmployeeController extends AccountBaseController
         } catch (TransportException $e) {
             // Rollback Transaction
             DB::rollback();
-
-            return Reply::error('Please configure SMTP details to add employee. Visit Settings -> notification setting to set smtp ' . $e->getMessage(), 'smtp_error');
+            return $e;
+            // return Reply::error('Please configure SMTP details to add employee. Visit Settings -> notification setting to set smtp ' . $e->getMessage(), 'smtp_error');
         } catch (\Exception $e) {
             logger($e->getMessage());
             // Rollback Transaction
