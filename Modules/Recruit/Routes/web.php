@@ -152,6 +152,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::post('job-applications/quick-add-form-store', [JobApplicationController::class, 'quickAddFormStore'])->name('job-applications.quick_add_form_store');
     Route::resource('job-applications', JobApplicationController::class);
 
+    Route::get('job-application/swap', [JobApplicationController::class, 'swap'])->name('job-applications.swap');
+    Route::get('job-application/swap/pay/{id}', [JobApplicationController::class, 'swapPay'])->name('swap.pay');
+    Route::post('job-application/swap/pay', [JobApplicationController::class, 'swapPaySave'])->name('swap.save');
+    Route::post('job-application/swap/confirm', [JobApplicationController::class, 'swapConfirm'])->name('swap.confirm');
+
     Route::get('application-file/download/{id}', [JobApplicationFilesController::class, 'download'])->name('application-file.download');
     Route::resource('application-file', JobApplicationFilesController::class);
 

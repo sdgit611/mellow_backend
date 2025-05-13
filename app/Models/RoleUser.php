@@ -23,6 +23,8 @@ class RoleUser extends BaseModel
 {
 
     protected $table = 'role_user';
+    
+    protected $fillable = ['user_id','role_id'];
 
     public function user(): BelongsTo
     {

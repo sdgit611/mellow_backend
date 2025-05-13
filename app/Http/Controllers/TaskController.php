@@ -35,6 +35,8 @@ use App\Http\Requests\Tasks\StoreTask;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\Tasks\UpdateTask;
 use App\Events\TaskEvent;
+use App\Models\ReviewQuestion;
+use App\Models\ReviewUser;
 
 class TaskController extends AccountBaseController
 {
@@ -409,6 +411,109 @@ class TaskController extends AccountBaseController
         return view('tasks.create', $this->data);
     }
 
+
+    public function reviews($id)
+    {
+        $this->pageTitle = 'Add Review';
+        $this->task = Task::with('users')->where('id', $id)->first();
+        $this->question = ReviewQuestion::get();
+
+        $this->userRivews = ReviewUser::with(['user', 'question'])->where('company_id', auth()->user()->company_id)->where('task_id', $id)->get();
+
+        $this->userRivews_group_by = ReviewUser::where('company_id', auth()->user()->company_id)
+                                    ->where('task_id', $id)
+                                    ->groupBy('user_id')
+                                    ->pluck('user_id')
+                                    ->toArray();
+
+        $this->taskId = $id;
+
+        return view('tasks.reviews', $this->data);
+    }
+
+    public function reviewstore(Request $request)
+    {
+        $total = 0; // total possible stars
+        $value = 0; // user's given stars
+
+        foreach ($request->ratings as $questionId => $val)
+        {
+            $review = new ReviewUser();
+            $review->company_id = auth()->user()->company_id;
+            $review->user_id = $request->user;
+            $review->task_id = $request->task_id; // You might want to use $request->task_id
+            $review->review_questions_id = $questionId;
+            $review->star = $val;
+            $review->comment = $request->comment;
+            $review->save();
+
+            $value += $val;
+        }
+
+        $count = ReviewQuestion::where('company_id', auth()->user()->company_id)->count(); // max star for this question
+
+        // Avoid division by zero
+        $avg = $value / $count;
+
+        if($avg > 3)
+            return response()->json([
+                'avg' => $avg,
+                'value' => $value,
+                'count' => $count,
+            ]);
+        else
+             return response()->json([
+                'avg' => $avg,
+                'value' => $value,
+                'count' => $count,
+                'route' => route('user.show', ['id' => $request->user])
+            ]);
+    }
+
+    public function userShow($id)
+    {
+        $user = User::findOrFail($id); // More Laravel-way to get user or fail
+
+        $user_data = DB::table('recruit_job_applications')
+            ->where('full_name', $user->name)
+            ->first();
+
+        if (!$user_data || !isset($user_data->skill)) {
+            return response()->json(['message' => 'User data not found'], 404);
+        }
+
+        $this->id = $id;
+
+        $skills = explode(',', $user_data->skill);
+
+        $this->users = DB::table('recruit_job_applications')
+                ->where('company_id', auth()->user()->company_id)
+                ->where('current_location', $user_data->current_location)
+                ->whereBetween('current_ctc', [
+                    $user_data->current_ctc - 100000,
+                    $user_data->current_ctc + 100000
+                ])
+                ->whereNull('recruit_application_status_id')
+                ->where(function($query) use ($skills) {
+                    foreach ($skills as $skill) {
+                        $query->where('skill', 'LIKE', '%'.trim($skill).'%');
+                    }
+                })
+                ->where('full_name', '!=', $user->name)
+                ->orderBy('current_ctc', 'asc')
+                ->get();
+
+        return view('tasks.user_show', $this->data);
+    }
+
+    public function applicantSelect(Request $request)
+    {
+        DB::table('recruit_job_applications')->where('id', $request->swap_id)->update([
+            'swap_id' => $request->developer_id
+        ]);
+
+        return redirect()->route('job-applications.swap');
+    }
     // The function is called for duplicate code also
     public function store(StoreTask $request)
     {

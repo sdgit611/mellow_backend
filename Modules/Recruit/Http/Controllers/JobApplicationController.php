@@ -3,6 +3,11 @@
 namespace Modules\Recruit\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\User;
+use App\Models\Skill; // Add this
+use App\Models\Role; // Add this
+use App\Models\EmployeeDetails; // Add this
+use App\Models\EmployeeSkill; // Add this
 use App\Helper\Files;
 use App\Helper\Reply;
 use Illuminate\Http\Request;
@@ -19,6 +24,7 @@ use Modules\Recruit\Entities\RecruitApplicationFile;
 use Modules\Recruit\Entities\RecruitApplicationSkill;
 use Modules\Recruit\Entities\RecruitApplicationStatus;
 use Modules\Recruit\DataTables\JobApplicationsDataTable;
+use Modules\Recruit\DataTables\JobApplicationsSwapTable;
 use Modules\Recruit\Entities\RecruitCandidateFollowUp;
 use Modules\Recruit\Entities\RecruitInterviewSchedule;
 use Modules\Recruit\Entities\RecruitJobAddress;
@@ -28,6 +34,9 @@ use Modules\Recruit\Http\Requests\JobApplication\StoreJobApplication;
 use Modules\Recruit\Http\Requests\JobApplication\StoreQuickApplication;
 use Modules\Recruit\Http\Requests\JobApplication\UpdateJobApplication;
 use PhpParser\Node\Expr\Empty_;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Mail;
+use DB;
 
 class JobApplicationController extends AccountBaseController
 {
@@ -107,6 +116,207 @@ class JobApplicationController extends AccountBaseController
 
         return view('recruit::job-applications.create', $this->data);
     }
+
+    public function swap(JobApplicationsSwapTable $dataTable)
+    {
+        $viewPermission = user()->permission('view_job_application');
+        abort_403(!in_array($viewPermission, ['all', 'added', 'owned', 'both']));
+
+        $this->applicationStatus = RecruitApplicationStatus::select('id', 'status', 'position', 'color')->orderBy('position')->get();
+        $this->applicationSources = ApplicationSource::all();
+        $this->jobs = RecruitJob::where('status', 'open')->get();
+        $this->locations = CompanyAddress::all();
+        $this->jobLocations = RecruitJobAddress::with('location')->where('recruit_job_id', request()->id)->get();
+        $this->jobApp = RecruitJob::where('id', request()->id)->first();
+
+        $this->locations = CompanyAddress::all();
+        $this->currentLocations = RecruitJobApplication::select('current_location')->where('current_location', '!=', null)->distinct()->get();
+
+        $settings = RecruitSetting::select('form_settings')->first();
+        $this->formSettings = collect([]);
+
+        if ($settings) {
+            $formSettings = $settings->form_settings;
+
+            foreach ($formSettings as $form) {
+                if ($form['status'] == true) {
+                    $this->formSettings->push($form);
+                }
+            }
+
+        }
+
+        $this->formFields = $this->formSettings->pluck('name')->toArray();
+
+        return $dataTable->render('recruit::job-applications.table', $this->data);
+    }
+
+    public function swapPay($id)
+    {
+        $user_swap = RecruitJobApplication::find($id);
+
+        if (!$user_swap) {
+            abort(404, 'Swap request not found.');
+        }
+
+        $user_data = User::find($user_swap->swap_id);
+
+        if (!$user_data) {
+            abort(404, 'User not found.');
+        }
+
+        $user = RecruitJobApplication::where('full_name', $user_data->name)->first();
+
+        $this->user_swap = $user_swap;
+        $this->user_data = $user_data;
+        $this->user = $user;
+        $this->id = $id;
+
+        return view('swapPay', $this->data);
+    }
+
+    public function swapPaySave(Request $request)
+    {
+        // Validate input
+        $validated = $request->validate([
+            'id' => 'required|integer|exists:recruit_job_applications,id',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Update payment amount
+        $updated = RecruitJobApplication::where('id', $validated['id'])->update([
+            'payment_amount' => $validated['amount'],
+            'recruit_application_status_id' => 6,
+            'payment_date' => Carbon::now(),
+            'payment_status' => "Success",
+        ]);
+
+         if ($updated) {
+            $application = RecruitJobApplication::find($validated['id']);
+
+            $user = new User();
+            $user->name = $application->full_name;
+            $user->email = $application->email;
+            $user->mobile = $application->phone;
+            $user->password = bcrypt('default@123');
+
+            if ($request->has('login')) {
+                $user->login = "enable";
+            }
+
+            $req = 'yes';
+            $user->email_notifications = ($req === 'yes') ? 1 : 0;
+
+            $user->save();
+
+            $token = Password::broker()->createToken($user);
+            $resetUrl = url('/reset-password/' . $token . '?email=' . urlencode($user->email));
+
+            $htmlContent = "
+                <p>🎉 <strong>Congratulations!</strong> Your account has been created successfully.</p>
+                <p>You can reset your password and start using our service by clicking the link below:</p>
+                <p><a href='{$resetUrl}' target='_blank'>{$resetUrl}</a></p>
+            ";
+
+            DB::table('users_chat')->where('user_one',$application->swap_id)->update([
+                'user_one' => $user->id
+            ]);
+
+            DB::table('users_chat')->where('user_id',$application->swap_id)->update([
+                'user_id' => $user->id
+            ]);
+
+            DB::table('users_chat')->where('from',$application->swap_id)->update([
+                'from' => $user->id
+            ]);
+
+            DB::table('users_chat')->where('to',$application->swap_id)->update([
+                'to' => $user->id
+            ]);
+
+            DB::table('users_chat_files')->where('user_id',$application->swap_id)->update([
+                'user_id' => $user->id
+            ]);
+
+            DB::table('users_chat_files')->where('users_chat_id',$application->swap_id)->update([
+                'users_chat_id' => $user->id
+            ]);
+
+            DB::table('task_users')->where('user_id',$application->swap_id)->update([
+                'user_id' => $user->id
+            ]);
+
+
+
+
+
+
+
+
+            Mail::send([], [], function ($message) use ($user, $htmlContent) {
+                $message->to($user->email)
+                    ->subject('Welcome to Our Platform - Set Your Password')
+                    ->html($htmlContent); 
+            });
+
+            // Add Skills
+            $skillsJson = json_encode([
+                ["value" => "Vue.js"],
+                ["value" => "Laravel"],
+                ["value" => "HTML"],
+            ]);
+
+            $tags = json_decode($skillsJson);
+
+            foreach ($tags as $tag) {
+                $skillName = $tag->value;
+                $skillData = Skill::whereRaw('LOWER(name) = ?', [strtolower($skillName)])->first();
+
+                if ($skillData) {
+                    $skill = new EmployeeSkill();
+                    $skill->user_id = $user->id;
+                    $skill->skill_id = $skillData->id;
+                    $skill->save();
+                }
+            }
+
+            // Save Employee Details
+            $employee = new EmployeeDetails();
+            $employee->user_id = $user->id;
+            $employee->save();
+
+            // Assign Role
+            $employeeRole = Role::where('name', 'employee')->first();
+            $user->attachRole($employeeRole);
+
+            if (!empty($application->role_id) && $application->role_id != $employeeRole->id) {
+                $otherRole = Role::where('id', $application->role_id)->first();
+                if ($otherRole) {
+                    $user->attachRole($otherRole);
+                }
+            }
+
+            $user->assignUserRolePermission($application->role_id ?? $employeeRole->id);
+        }
+
+
+
+
+        // Respond accordingly
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Payment amount updated successfully.',
+                'redirect_url' => route('job-applications.swap') // optional
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update payment amount.'
+            ], 500);
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.

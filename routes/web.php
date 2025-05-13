@@ -123,9 +123,12 @@ use App\Http\Controllers\NoticeFileController;
 use App\Http\Controllers\InvoicePaymentDetailController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\WeeklyTimesheetController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\BankConrtoller;
+=======
+>>>>>>> Stashed changes
 use App\Http\Controllers\PayEmployeeController;
 
 
@@ -442,6 +445,18 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     Route::get('tasks/waiting-approval', [TaskController::class, 'waitingApproval'])->name('tasks.waiting-approval');
     Route::get('tasks/show-waiting-approval-change-status-modal', [TaskController::class, 'statusReason'])->name('tasks.show_status_reason_modal');
     Route::post('tasks/store-status-reason', [TaskController::class, 'storeStatusReason'])->name('tasks.store_comment_on_change_status');
+
+    Route::get('tasks/create/reviews/{id}', [TaskController::class, 'reviews'])->name('tasks.create.reviews');
+    Route::post('tasks/create/reviews', [TaskController::class, 'reviewstore'])->name('tasks.reviews.store');
+
+    Route::get('tasks/create/reviews/user/{id}', [TaskController::class, 'userShow'])->name('user.show');
+
+
+
+    Route::post('applicant/select', [TaskController::class, 'applicantSelect'])->name('applicant.select');
+
+    
+
 
     Route::group(['prefix' => 'tasks'], function () {
 
@@ -893,4 +908,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     
     
 });
+<<<<<<< Updated upstream
 Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');
+=======
+
+Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');
+>>>>>>> Stashed changes

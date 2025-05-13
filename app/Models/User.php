@@ -225,7 +225,7 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     use HasMaskImage;
     use UseDevices;
 
-
+    protected $fillable = ['company_id','name', 'email', 'phone', 'password', 'locale', 'status', 'login', 'dark_theme', 'rtl', 'admin_approval'];
     const ALL_ADDED_BOTH = ['all', 'added', 'both'];
 
     public static function boot()

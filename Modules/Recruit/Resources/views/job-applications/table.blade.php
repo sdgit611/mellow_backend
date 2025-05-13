@@ -206,13 +206,11 @@
         <!-- Add Task Export Buttons Start -->
         <div class="d-block d-lg-flex d-md-flex justify-content-between action-bar dd">
 
-            <div id="table-actions" class="flex-grow-1 align-items-center">
-                @if ($addJobApplicationPermission == 'all' || $addJobApplicationPermission == 'added')
-                    <x-forms.link-primary :link="route('job-applications.create')" class="mr-3 openRightModal float-left mb-2 mb-lg-0 mb-md-0"
-                                          icon="plus">
-                        @lang('recruit::modules.jobApplication.addJobApplications')
-                    </x-forms.link-primary>
-                @endif
+            <div class="flex-grow-1 align-items-center">
+               <a href="{{route('job-applications.swap')}}" class="btn btn-primary rounded f-14 p-2 mr-3 float-left mb-2 mb-lg-0 mb-md-0">
+                    
+                    Job Application swap
+                </a>
 
                 <x-forms.button-secondary class="btn-secondary rounded f-14 p-2 mr-3 float-left mb-2 mb-lg-0 mb-md-0 quick-add" icon="plus">
                     @lang('recruit::modules.jobApplication.quickAdd')
@@ -640,7 +638,10 @@
         
 
     </script>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     <!--Start by Shivam -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 

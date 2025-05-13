@@ -110,6 +110,15 @@ class TasksDataTable extends BaseDataTable
                                         </a>';
                 }
 
+               if($row->boardColumn->slug == 'completed')
+                {
+                    $action .= '<a class="dropdown-item" href="' . route('tasks.create.reviews', ['id' => $row->id]) . '">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    Reviews
+                                </a>';
+                }
+
+                
                 if ($row->canDeleteTicket()) {
                     if($isAdmin || ($row->approval_send == 0 && $isEmployee && !$isAdmin)) {
                         $action .= '<a class="dropdown-item delete-table-row" href="javascript:;" data-active-running = "' . ($row->activeTimer ? true : false) . '" data-user-id="' . $row->id . '">
@@ -355,24 +364,34 @@ class TasksDataTable extends BaseDataTable
                 if (($row->board_column_id == $taskBoardColumn->id) && (in_array('admin', user_roles()) || (in_array('employee', user_roles()) && $row->project_admin == user()->id))) {
                     return '<a href="' . route('tasks.waiting-approval') . '"><span class=" disabled-select"><i class="fa fa-circle mr-1 text-black"
                             style="color: ' . $row->boardColumn->label_color . '"></i>' . $row->boardColumn->column_name . '</span></a>';
-                }else{
-                    $status = '<select class="form-control select-picker change-status" data-size="3" data-need-approval="' . $row->need_approval_by_admin . '" data-project-admin="' . $row->project_admin . '" data-task-id="' . $row->id . '">';
+                } else {
+    // Disable dropdown if current status is 'completed'
+    if ($row->boardColumn->slug == 'completed') {
+        return '<span class="disabled-select"><i class="fa fa-circle mr-1 text-black"
+                style="color: ' . $row->boardColumn->label_color . '"></i>' . $row->boardColumn->column_name . '</span>';
+    }
 
-                    foreach ($taskBoardColumns as $item) {
-                        if ($item->id != $taskBoardColumn->id) {
-                            $status .= '<option ';
+    $status = '<select class="form-control select-picker change-status" 
+        data-size="3" 
+        data-need-approval="' . $row->need_approval_by_admin . '" 
+        data-project-admin="' . $row->project_admin . '" 
+        data-task-id="' . $row->id . '">';
 
-                            if ($item->id == $row->board_column_id) {
-                                $status .= 'selected';
-                            }
-                            $status .= '  data-content="<i class=\'fa fa-circle mr-2\' style=\'color: ' . $item->label_color . '\'></i> ' . $item->column_name . '" value="' . $item->slug . '">' . $item->column_name . '</option>';
-                        }
-                    }
+    foreach ($taskBoardColumns as $item) {
+        if ($item->id != $taskBoardColumn->id) {
+            $status .= '<option ';
+            if ($item->id == $row->board_column_id) {
+                $status .= 'selected';
+            }
+            $status .= ' data-content="<i class=\'fa fa-circle mr-2\' style=\'color: ' . $item->label_color . '\'></i> ' . $item->column_name . '" value="' . $item->slug . '">' . $item->column_name . '</option>';
+        }
+    }
 
-                    $status .= '</select>';
+    $status .= '</select>';
 
-                    return $status;
-                }
+    return $status;
+}
+
             }
 
             return '<span class="p-2"><i class="fa fa-circle mr-1 text-yellow"

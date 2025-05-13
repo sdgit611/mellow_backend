@@ -37,7 +37,7 @@ return [
     /*
     * URL to verify your purchase code
     */
-    'verify_url' => $VERIFY_DOMAIN . '/verify-purchase',
+    // 'verify_url' => $VERIFY_DOMAIN . '/verify-purchase',
 
     'latest_version_file' => $VERIFY_DOMAIN . '/latest-version/' . $ENVATO_ID,
 

@@ -1,0 +1,200 @@
+[29-Apr-2025 13:25:53 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 13:26:26 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 13:27:13 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 13:31:06 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 13:31:52 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 16:07:31 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 16:08:13 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 16:27:55 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 16:27:59 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 16:28:29 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[29-Apr-2025 17:06:36 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[02-May-2025 06:31:58 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[02-May-2025 14:08:41 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[03-May-2025 10:01:06 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[03-May-2025 10:01:30 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[03-May-2025 10:02:10 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[03-May-2025 10:02:18 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[03-May-2025 10:03:00 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[03-May-2025 15:41:26 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88
+[03-May-2025 15:42:12 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable $response in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php:88
+Stack trace:
+#0 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php(88): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): Froiden\RestAPI\Handlers\ApiExceptionHandler->render()
+#3 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(195): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#4 /home/mf2badmin/public_html/staging/mellow_backend/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#5 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#6 {main}
+  thrown in /home/mf2badmin/public_html/staging/mellow_backend/vendor/froiden/laravel-rest-api/src/Handlers/ApiExceptionHandler.php on line 88

@@ -42,7 +42,7 @@ class Team extends BaseModel
 
     use HasCompany;
 
-    protected $fillable = ['team_name'];
+    protected $fillable = ['team_name', 'company_id'];
 
     public function members(): HasMany
     {

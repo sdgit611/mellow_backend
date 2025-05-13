@@ -14,7 +14,8 @@ class StoreJobSkill extends CoreRequest
     public function rules()
     {
         return [
-            'names' => 'required|unique:recruit_skills,name',
+            // 'names' => 'required|unique:recruit_skills,name',
+            'names' => 'required',
         ];
     }
 

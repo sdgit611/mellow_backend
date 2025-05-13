@@ -9,7 +9,7 @@ use Yajra\DataTables\Html\Column;
 use Modules\Recruit\Entities\RecruitJobApplication;
 use Modules\Recruit\Entities\RecruitApplicationStatus;
 
-class JobApplicationsDataTable extends BaseDataTable
+class JobApplicationsSwapTable extends BaseDataTable
 {
 
     private $editJobApplicationPermission;
@@ -23,7 +23,6 @@ class JobApplicationsDataTable extends BaseDataTable
         $this->deleteJobApplicationPermission = user()->permission('delete_job_application');
         $this->viewJobApplicationPermission = user()->permission('view_job_application');
     }
-
 
     /**
      * Build DataTable class.
@@ -51,12 +50,12 @@ class JobApplicationsDataTable extends BaseDataTable
                 return '<a href="' . route('jobs.show', [$row->recruit_job_id]) . '" class="text-darkest-grey" >' . $row->title . '</a>';
             })
             ->editColumn('location', function ($row) {
-                return $row->location;
+                return $row->current_location;
             })
             ->editColumn('created_at', function ($row) {
                 return $row->created_at->format($this->company->date_format);
             })
-            // by Start Shivam
+            
             ->editColumn('status', function ($row) use ($jobBoardColumns) {
                 if ($this->editJobApplicationPermission == 'all' || 
                     ($this->editJobApplicationPermission == 'added' && $row->added_by == user()->id) ||
@@ -109,37 +108,12 @@ class JobApplicationsDataTable extends BaseDataTable
                 if ($row->recruit_application_status_id == 4) {
                     return '
                         <div class="d-flex align-items-center gap-2">
-                            <div class="d-flex flex-column w-90">
-                                <input 
-                                    type="number" 
-                                    class="form-control form-control-sm pay-amount-input w-100" 
-                                    placeholder="Amount" 
-                                    min="' . ($row->current_ctc * 0.20) . '" 
-                                    max="' . $row->current_ctc . '"
-                                    style="width: 120px;"
-                                    data-row-id="' . $row->id . '"
-                                >
-                                <small class="text-muted">Min: ' . ($row->current_ctc * 0.20) . ' | Max: ' . $row->current_ctc . '</small>
-                                
-                                <div class="form-check mt-1">
-                                    <input 
-                                        type="checkbox" 
-                                        class="form-check-input terms-checkbox" 
-                                        id="terms_' . $row->id . '"
-                                    >
-                                    <label class="form-check-label" for="terms_' . $row->id . '">
-                                        I accept the <a href="#" target="_blank">terms and conditions</a>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <button 
-                                type="button" 
-                                class="btn btn-sm btn-success pay-now-btn" 
-                                data-statuss-id="' . $row->id . '" 
-                                data-amount="' . $row->current_ctc . '" 
-                                id="pay_emp"
-                            >Pay Now</button>
+                            <a 
+                                href="' . route('swap.pay', ['id' => $row->id]) . '" 
+                                class="btn btn-sm btn-success"
+                            >
+                                Pay Now
+                            </a>
                         </div>
                     ';
                 } elseif ($row->recruit_application_status_id != 6) {
@@ -148,93 +122,20 @@ class JobApplicationsDataTable extends BaseDataTable
                     return '<span class="badge badge-secondary">Paid</span>';
                 }
             })
-            
-            // by End Shivam
-<<<<<<< Updated upstream
-            
-=======
->>>>>>> Stashed changes
+            ->addColumn('swap_name', function ($row) {
+                return $row->swap_name; 
+            })
+       
             ->addColumn('name', function ($row) {
                 return $row->full_name;
             })
             ->addColumn('job_name', function ($row) {
                 return $row->title;
             })
-            ->addColumn('action', function ($row) {
-                $action = '<div class="task_view">
-
-                    <div class="dropdown">
-                        <a class="task_view_more d-flex align-items-center justify-content-center dropdown-toggle" type="link"
-                            id="dropdownMenuLink-' . $row->id . '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-options-vertical icons"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-' . $row->id . '" tabindex="0">';
-
-                if ($this->viewJobApplicationPermission == 'all' ||
-                    ($this->viewJobApplicationPermission == 'added' && $row->added_by == user()->id) ||
-                    ($this->viewJobApplicationPermission == 'owned' && user()->id == $row->recruiter_id) ||
-                    ($this->viewJobApplicationPermission == 'both' && user()->id == $row->recruiter_id) ||
-                    $row->added_by == user()->id) {
-                    $action .= '<a href="' . route('job-applications.show', [$row->id]) . '" class="dropdown-item openRightModal"><i class="fa fa-eye mr-2"></i>' . __('app.view') . '</a>';
-                }
-
-                if ($this->editJobApplicationPermission == 'all' ||
-                    ($this->editJobApplicationPermission == 'added' && $row->added_by == user()->id) ||
-                    ($this->editJobApplicationPermission == 'owned' && user()->id == $row->recruiter_id) ||
-                    ($this->editJobApplicationPermission == 'both' && user()->id == $row->recruiter_id) ||
-                    $row->added_by == user()->id) {
-                    $action .= '<a class="dropdown-item openRightModal" href="' . route('job-applications.edit', [$row->id]) . '">
-                                    <i class="fa fa-edit mr-2"></i>
-                                    ' . trans('app.edit') . '
-                                </a>';
-                }
-
-                if ($this->editJobApplicationPermission == 'all' ||
-                    ($this->editJobApplicationPermission == 'added' && $row->added_by == user()->id) ||
-                    ($this->editJobApplicationPermission == 'owned' && user()->id == $row->recruiter_id) ||
-                    ($this->editJobApplicationPermission == 'both' && user()->id == $row->recruiter_id) ||
-                    $row->added_by == user()->id) {
-                    $action .= '<a class="dropdown-item archive-job" href="javascript:;" data-application-id="' . $row->id . '">
-                                    <i class="fa fa-archive mr-2"></i>
-                                    ' . trans('recruit::modules.jobApplication.archiveApplication') . '
-                                </a>';
-                }
-
-                if ($this->editJobApplicationPermission == 'all' ||
-                    ($this->editJobApplicationPermission == 'added' && $row->added_by == user()->id) ||
-                    ($this->editJobApplicationPermission == 'owned' && user()->id == $row->recruiter_id) ||
-                    ($this->editJobApplicationPermission == 'both' && user()->id == $row->recruiter_id) ||
-                    $row->added_by == user()->id) {
-                    $action .= '<a class="dropdown-item follow-up" href="javascript:;" data-datatable="true" data-application-id="' . $row->id . '">
-                    <i class="fa fa-thumbs-up mr-2"></i>
-                    ' . trans('modules.lead.addFollowUp') . '
-                    </a>';
-                }
-
-                if ($this->deleteJobApplicationPermission == 'all' ||
-                    ($this->deleteJobApplicationPermission == 'added' && $row->added_by == user()->id) ||
-                    ($this->deleteJobApplicationPermission == 'owned' && user()->id == $row->recruiter_id) ||
-                    ($this->deleteJobApplicationPermission == 'both' && user()->id == $row->recruiter_id) ||
-                    $row->added_by == user()->id) {
-                    $action .= '<a class="dropdown-item delete-table-row" href="javascript:;" data-application-id="' . $row->id . '">
-                                    <i class="fa fa-trash mr-2"></i>
-                                    ' . trans('app.delete') . '
-                                </a>';
-                }
-
-                $action .= '</div>
-                    </div>
-                </div>';
-
-                return $action;
-            })
+           
             ->addIndexColumn()
             ->setRowId(fn($row) => 'row-' . $row->id)
             ->rawColumns(['action', 'payment', 'status', 'full_name', 'recruit_job_id', 'location', 'date', 'check']);
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     }
 
     /**
@@ -257,17 +158,34 @@ class JobApplicationsDataTable extends BaseDataTable
             $endDate = Carbon::createFromFormat($this->company->date_format, $request->endDate)->toDateString();
         }
 
-<<<<<<< Updated upstream
-        $model = $model->select('recruit_job_applications.id', 'recruit_job_applications.recruit_application_status_id', 'recruit_job_applications.full_name', 'recruit_job_applications.created_at', 'recruit_job_applications.gender', 'recruit_job_applications.total_experience', 'recruit_job_applications.current_location', 'recruit_job_applications.current_ctc', 'recruit_job_applications.added_by', 'recruit_jobs.title', 'recruit_jobs.id as recruit_job_id', 'recruit_jobs.recruiter_id', 'company_addresses.location', 'recruit_application_status.color', 'recruit_application_status.status', 'application_sources.application_source', 'recruit_job_applications.payment_status');
-=======
-        $model = $model->select('recruit_job_applications.id', 'recruit_job_applications.recruit_application_status_id', 'recruit_job_applications.full_name', 'recruit_job_applications.created_at', 'recruit_job_applications.gender', 'recruit_job_applications.total_experience', 'recruit_job_applications.current_location', 'recruit_job_applications.current_ctc', 'recruit_job_applications.added_by', 'recruit_jobs.title', 'recruit_jobs.id as recruit_job_id', 'recruit_jobs.recruiter_id', 'company_addresses.location', 'recruit_application_status.color', 'recruit_application_status.status', 'application_sources.application_source', 'recruit_job_applications.payment_status');       
->>>>>>> Stashed changes
+        $model = $model->select(
+                'recruit_job_applications.id',
+                'recruit_job_applications.swap_id',
+                'users.name as swap_name',
+                'recruit_job_applications.recruit_application_status_id',
+                'recruit_job_applications.full_name',
+                'recruit_job_applications.created_at',
+                'recruit_job_applications.gender',
+                'recruit_job_applications.total_experience',
+                'recruit_job_applications.current_location',
+                'recruit_job_applications.current_ctc',
+                'recruit_job_applications.added_by',
+                'recruit_jobs.title',
+                'recruit_jobs.id as recruit_job_id',
+                'recruit_jobs.recruiter_id',
+                'company_addresses.location',
+                'recruit_application_status.color',
+                'recruit_application_status.status',
+                'application_sources.application_source',
+                'recruit_job_applications.payment_status'
+            );      
         $model = $model->leftJoin('recruit_application_status', 'recruit_application_status.id', '=', 'recruit_job_applications.recruit_application_status_id');
-        $model = $model->leftJoin('recruit_jobs', 'recruit_jobs.id', '=', 'recruit_job_applications.recruit_job_id')
-            ->leftJoin('company_addresses', 'company_addresses.id', '=', 'recruit_job_applications.location_id')
-            ->leftJoin('application_sources', 'application_sources.id', '=', 'recruit_job_applications.application_source_id')
-            ->whereNull('recruit_job_applications.swap_id')
-            ->groupBy('recruit_job_applications.id');
+        $model = $model->leftJoin('recruit_jobs', 'recruit_jobs.id', '=', 'recruit_job_applications.recruit_job_id');
+        $model = $model->leftJoin('users', 'users.id', '=', 'recruit_job_applications.swap_id')
+                ->leftJoin('company_addresses', 'company_addresses.id', '=', 'recruit_job_applications.location_id')
+                ->leftJoin('application_sources', 'application_sources.id', '=', 'recruit_job_applications.application_source_id')
+                ->where('recruit_job_applications.swap_id', '!=', null)
+                ->groupBy('recruit_job_applications.id');
 
         if ($this->viewJobApplicationPermission == 'added') {
             $model->where(function ($query) {
@@ -335,10 +253,6 @@ class JobApplicationsDataTable extends BaseDataTable
         if ($request->expected_ctc_min != null && $request->expected_ctc_min != '') {
             $model = $model->where('recruit_job_applications.expected_ctc', '>=', $request->expected_ctc_min);
         }
-        if ($request->payment_status != null && $request->payment_status != '') {
-            $model = $model->where('recruit_job_applications.payment_status', '>=', $request->payment_status);
-        }
-
 
         if ($request->expected_ctc_max != null && $request->expected_ctc_max != '') {
             $model = $model->where('recruit_job_applications.expected_ctc', '<=', $request->expected_ctc_max);
@@ -399,25 +313,22 @@ class JobApplicationsDataTable extends BaseDataTable
             __('recruit::modules.job.location') => ['data' => 'location', 'name' => 'company_addresses.location', 'title' => __('recruit::modules.job.location')],
             __('recruit::app.jobApplication.date') => ['data' => 'created_at', 'name' => 'created_at', 'title' => __('recruit::app.jobApplication.date')],
             __('app.status') => ['data' => 'status', 'name' => 'status', 'exportable' => false, 'orderable' => false, 'title' => __('app.status')],
-<<<<<<< Updated upstream
-            __('Payment') => [ 
-=======
             __('Payment') => [
->>>>>>> Stashed changes
-                'data' => 'payment', 
-                'name' => 'payment', 
-                'exportable' => false, 
-                'orderable' => false, 
+                'data' => 'payment',
+                'name' => 'payment',
+                'exportable' => false,
+                'orderable' => false,
                 'searchable' => false,
                 'title' => __('Payment')
             ],
-            Column::computed('action', __('app.action'))
-                ->exportable(false)
-                ->printable(false)
-                ->orderable(false)
-                ->searchable(false)
-                ->width(200)
-                ->addClass('text-right pr-20')
+            __('Swap Name') => [
+                'data' => 'swap_name',
+                'name' => 'users.name',
+                'exportable' => true,
+                'orderable' => true,
+                'searchable' => true,
+                'title' => __('Swap Name')
+            ],
         ];
     }
 
