@@ -123,12 +123,6 @@ use App\Http\Controllers\NoticeFileController;
 use App\Http\Controllers\InvoicePaymentDetailController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\WeeklyTimesheetController;
-<<<<<<< Updated upstream
-use App\Http\Controllers\EducationController;
-use App\Http\Controllers\SkillController;
-use App\Http\Controllers\BankConrtoller;
-=======
->>>>>>> Stashed changes
 use App\Http\Controllers\PayEmployeeController;
 
 
@@ -908,9 +902,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
     
     
 });
-<<<<<<< Updated upstream
-Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');
-=======
 
 Route::post('pay-employee', [PayEmployeeController::class, 'store'])->name('pay.employee');
->>>>>>> Stashed changes

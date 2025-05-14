@@ -37,10 +37,6 @@ use Modules\Recruit\Entities\RecruitWorkExperience;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 class JobController extends AccountBaseController
 {
@@ -252,8 +248,6 @@ class JobController extends AccountBaseController
         return $dataTable->render('recruit::jobs.show', $this->data);
     }
 
-<<<<<<< Updated upstream
-=======
     //  old function before api integration 
     // public function store(StoreJobRequest $request)
     // {
@@ -335,7 +329,6 @@ class JobController extends AccountBaseController
     // }
     
     //  new function after api integrated 
->>>>>>> Stashed changes
     // by shankar
     public function store(Request $request)
     {
@@ -353,15 +346,11 @@ class JobController extends AccountBaseController
         if (!$response->ok()) {
             return response()->json(['status' => false, 'message' => 'Developer API failed']);
         }
-<<<<<<< Updated upstream
-        $developers = $response['data'];
-=======
 
          
         $developers = $response['data'];
 
         // return $developers;
->>>>>>> Stashed changes
         $filtered = [];
         foreach ($developers as $dev) {
             $devSkills = array_map('trim', explode(',', strtolower($dev['skills'] ?? '')));
@@ -374,28 +363,6 @@ class JobController extends AccountBaseController
             $experienceMatch = $devExperience >= (int) $data['work_experience'];
             $ctcMatch = $devExpectedCTC <= (float) $data['start_amount'];
 
-<<<<<<< Updated upstream
-            if (
-                $locationId &&
-                (
-                    $skillMatch ||
-                    $experienceMatch ||
-                    $ctcMatch
-                )
-            ) {
-                $filtered[] = $dev;
-
-                $existing = DB::table('recruit_job_applications')
-                    ->where('email', $dev['email'] ?? '')
-                    ->where('phone', $dev['phone'] ?? '')
-                    ->first();
-
-                $entry = [
-                    'company_id'            => 1,
-                    'full_name'             => $dev['name'] ?? '',
-                    'email'                 => $dev['email'] ?? '',
-                    'phone'                 => $dev['phone'] ?? '',
-=======
            if($locationId != null)
            {
                 $filtered[] = $dev;
@@ -417,7 +384,6 @@ class JobController extends AccountBaseController
                     'total_experience'      => $dev['total_experience'] ?? '',
                     'current_location'      => $dev['address'] ?? '',
                     'skill'      => $dev['skills'] ?? '',
->>>>>>> Stashed changes
                     'resume'                => 'Na',
                     'remark'                => 'Na',
                     'recruit_job_id'        => 1,
@@ -438,11 +404,7 @@ class JobController extends AccountBaseController
                     $entry['created_at'] = now();
                     DB::table('recruit_job_applications')->insert($entry);
                 }
-<<<<<<< Updated upstream
-            }
-=======
            }
->>>>>>> Stashed changes
         }
         // =========end apis filters section=============
 

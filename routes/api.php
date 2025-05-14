@@ -3,10 +3,7 @@
 use App\Http\Controllers\API\EmployeeApiController;
 use App\Http\Controllers\API\EmployerRegsitController;
 use App\Http\Controllers\API\JobApplicationController;
-<<<<<<< Updated upstream
-=======
 use App\Http\Controllers\API\EmployerRegisterController;
->>>>>>> Stashed changes
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,11 +23,7 @@ ApiRoute::group(['namespace' => 'App\Http\Controllers'], function () {
 Route::post('employees', [EmployeeApiController::class, 'store']);
 Route::post('/employer-register', [EmployerRegsitController::class, 'employerRegister']);
 Route::post('/job-applications', [JobApplicationController::class, 'store']);
-<<<<<<< Updated upstream
-
-=======
 Route::post('/employer-register', [EmployerRegisterController::class, 'store']);
 Route::get('/get-employer-company', [EmployerRegisterController::class, 'getUserData']);
->>>>>>> Stashed changes
 
 
